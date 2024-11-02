@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "CommonJS",
+    "declaration": true,           // Génère les fichiers .d.ts pour les types
+    "outDir": "dist",              // Dossier de sortie pour les fichiers compilés
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node"
+  },
+  "include": ["src"],
+  "files":[
+    "src/Otechdo.d.ts",
+    "src/EventManager.d.ts",
+    "src/ClassManager.d.ts"
+  ],
+  "exclude": ["node_modules", "dist"]
+}

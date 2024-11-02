@@ -1,0 +1,42 @@
+{
+  "name": "rustafari",
+  "readme": "README.md",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/rustaroots/rustafari/issues"
+  },
+  "homepage": "https://github.com/rustaroots/rustafari",
+  "version": "1.2.4",
+  "main": "dist/otechdo.js",
+  "types": "src/types/otechdo.d.ts",
+  "contributors": [
+    "Willy Micieli"
+  ],
+  "files": [
+    "dist",
+    "src"
+  ],
+  "repository": {
+    "url": "https://github.com/rustaroots/rustafari"
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "npm run clean && tsc",
+    "build:doc": "typedoc",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "author": "rustaroots",
+  "license": "GPL-3.0",
+  "description": "A versatile library for building modern websites with ease. Provides powerful tools and utilities for dynamic DOM manipulation, event handling, and interactive component development.",
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "ts-loader": "^9.5.1",
+    "typedoc": "^0.26.10",
+    "typedoc-plugin-markdown": "^4.2.10",
+    "typescript": "^5.6.3"
+  }
+}
