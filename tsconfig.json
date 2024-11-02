@@ -10,9 +10,7 @@
   },
   "include": ["src"],
   "files":[
-    "src/Otechdo.d.ts",
-    "src/EventManager.d.ts",
-    "src/ClassManager.d.ts"
+    "src"
   ],
   "exclude": ["node_modules", "dist"]
 }

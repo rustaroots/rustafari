@@ -1,3 +1,4 @@
-# Otechdo
+# Rustafari
 
-[Documentation](https://otechdo.github.io/otechdo/)
+Project in development coming soon
+
