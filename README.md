@@ -1,3 +1,3 @@
 - [Source code](https://github.com/rustaroots/rustafari)
   - [Documentation](https://rustaroots.github.io/rustafari/)
-  - [Web](WEB.md)
+    - [Web](https://github.com/rustaroots/rustafari/blob/main/WEB.md)
