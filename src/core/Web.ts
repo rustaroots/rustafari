@@ -22,6 +22,18 @@ export class Web {
     val(): string | undefined {
         return this.e?.innerHTML.toString()
     }
+
+    /**
+     *
+     * Add an event listener
+     *
+     * @param e The event
+     * @param callback The callback to execute
+     */
+    on(e:string,callback:EventListener):Web {
+        this.e?.addEventListener(e, callback);
+        return this;
+    }
 }
 
 /**
