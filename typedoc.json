@@ -1,6 +1,6 @@
 {
   "out": "docs",
-  "entryPoints": ["src"],
+  "entryPoints": ["src/index.ts"],
   "entryPointStrategy": "expand",
   "theme": "default"
 }
