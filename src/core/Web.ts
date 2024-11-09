@@ -182,6 +182,197 @@ export class Web {
     show(): Web {
         return this.attr('display', 'block')
     }
+
+    /**
+     * Adds a scroll event listener to the element, typically used to implement infinite scrolling.
+     * The provided callback function will execute whenever the element is scrolled.
+     *
+     * @param callback - The callback function to execute on scroll events. This function should include logic to handle loading more content when scrolling.
+     * @returns The `Web` instance for chaining.
+     *
+     * @example
+     * ```typescript
+     * $("#content").infinite_scroll(() => {
+     *     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+     *         loadMoreContent(); // Custom function to load more content
+     *     }
+     * });
+     * ```
+     */
+    infinite_scroll(callback: EventListener): Web {
+        return this.on('scroll', callback)
+    }
+
+    /**
+     * Adds a debounced scroll event listener, which executes the callback only after a delay.
+     *
+     * @param callback - The callback function to execute after scrolling stops for the delay period.
+     * @param delay - The delay in milliseconds before executing the callback (default is 200ms).
+     * @returns The `Web` instance for chaining.
+     *
+     * @example
+     * ```typescript
+     * $("#content").debounce_scroll(() => {
+     *     console.log("Scrolled, with debouncing!");
+     * }, 300);
+     * ```
+     */
+    debounce_scroll(callback: EventListener, delay = 200): Web {
+        let timeout: number | null = null
+        this.on('scroll', () => {
+            if (timeout) clearTimeout(timeout)
+            timeout = window.setTimeout(callback, delay)
+        })
+        return this
+    }
+
+    /**
+     * Adds a throttled scroll event listener, which limits how often the callback is executed.
+     *
+     * @param callback - The callback function to execute on scroll.
+     * @param limit - The minimum time in milliseconds between callback executions (default is 200ms).
+     * @returns The `Web` instance for chaining.
+     *
+     * @example
+     * ```typescript
+     * $("#content").throttle_scroll(() => {
+     *     console.log("Scrolled, with throttling!");
+     * }, 300);
+     * ```
+     */
+    throttle_scroll(callback: EventListener, limit = 200): Web {
+        let lastCall = 0
+        this.on('scroll', (event) => {
+            const now = Date.now()
+            if (now - lastCall >= limit) {
+                lastCall = now
+                callback(event) // Pass the event directly to the callback
+            }
+        })
+        return this
+    }
+
+    /**
+     * Executes a callback if the user clicks outside the element.
+     *
+     * @param callback - The callback function to execute when clicking outside the element.
+     * @returns The `Web` instance for chaining.
+     *
+     * @example
+     * ```typescript
+     * $("#modal").on_click_outside(() => {
+     *     $("#modal").hide(); // Hide the modal if clicked outside
+     * });
+     * ```
+     */
+    on_click_outside(callback: EventListener): Web {
+        document.addEventListener('click', (event) => {
+            if (!this.e.contains(event.target as Node)) {
+                callback.call(this.e, event)
+            }
+        })
+        return this
+    }
+
+    /**
+     * Toggles a CSS class on the element.
+     *
+     * @param className - The class name to toggle.
+     * @returns The `Web` instance for chaining.
+     *
+     * @example
+     * ```typescript
+     * $("#button").toggle("active");
+     * ```
+     */
+    toggle(className: string): Web {
+        this.e.classList.toggle(className)
+        return this
+    }
+
+    /**
+     * Adds a resize event listener to the window, useful for responsive adjustments.
+     *
+     * @param callback - The callback function to execute on resize.
+     * @returns The `Web` instance for chaining.
+     *
+     * @example
+     * ```typescript
+     * $("#container").on_resize(() => {
+     *     console.log("Window resized!");
+     * });
+     * ```
+     */
+    on_resize(callback: EventListener): Web {
+        window.addEventListener('resize', callback)
+        return this
+    }
+
+    /**
+     * Adds a click event listener to the element.
+     *
+     * @param callback - The callback function to execute when the element is clicked.
+     * @returns The `Web` instance for chaining.
+     *
+     * @example
+     * ```typescript
+     * $('#button').on_click(() => {
+     *     console.log("Button clicked!");
+     * });
+     * ```
+     */
+    on_click(callback: EventListener): Web {
+        return this.on('click', callback)
+    }
+
+    /**
+     * Adds an input event listener to the element (useful for text inputs).
+     *
+     * @param callback - The callback function to execute on input events.
+     * @returns The `Web` instance for chaining.
+     */
+    on_input(callback: EventListener): Web {
+        return this.on('input', callback)
+    }
+
+    /**
+     * Adds a mouseover event listener to the element.
+     *
+     * @param callback - The callback function to execute when the mouse is over the element.
+     * @returns The `Web` instance for chaining.
+     */
+    on_mouseover(callback: EventListener): Web {
+        return this.on('mouseover', callback)
+    }
+
+    /**
+     * Adds a mouseout event listener to the element.
+     *
+     * @param callback - The callback function to execute when the mouse leaves the element.
+     * @returns The `Web` instance for chaining.
+     */
+    on_mouseout(callback: EventListener): Web {
+        return this.on('mouseout', callback)
+    }
+    /**
+     * Adds a keydown event listener to the element (useful for keyboard interaction).
+     *
+     * @param callback - The callback function to execute on keydown events.
+     * @returns The `Web` instance for chaining.
+     */
+    on_keydown(callback: EventListener): Web {
+        return this.on('keydown', callback)
+    }
+
+    /**
+     * Adds a keyup event listener to the element.
+     *
+     * @param callback - The callback function to execute on keyup events.
+     * @returns The `Web` instance for chaining.
+     */
+    on_keyup(callback: EventListener): Web {
+        return this.on('keyup', callback)
+    }
 }
 
 /**
