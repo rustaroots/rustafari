@@ -1,17 +1,14 @@
 {
   "compilerOptions": {
-    "esModuleInterop": true,
-    "module": "commonjs",
-    "target": "es6",
-    "declaration": true,           // Génère les fichiers .d.ts pour les types
-    "outDir": "dist",              // Dossier de sortie pour les fichiers compilés
-    "strict": true,
-    "moduleResolution": "node"
+    "target": "es6",                      // Target ECMAScript 6
+    "module": "commonjs",                  // Use CommonJS module system
+    "declaration": true,                   // Generate .d.ts declaration files
+    "outDir": "./dist",                    // Output directory for compiled files
+    "strict": true,                        // Enable strict type-checking options
+    "esModuleInterop": true,               // Allow default imports from CommonJS modules
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true                   // Skip type checking of declaration files
   },
-  "files": ["src/core/Web.d.ts","src/core/Web.ts","src/index.ts"],
-  "exclude": [
-    "node_modules",
-    "**/*.test.ts",          // Exclut tous les fichiers se terminant par .test.ts
-    "**/*.spec.ts"           // Exclut également les fichiers se terminant par .spec.ts si besoin
-  ]
+  "include": ["src/**/*.ts"],              // Include all TypeScript files in src directory
+  "exclude": ["node_modules", "dist"]      // Exclude node_modules and output directory
 }
