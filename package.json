@@ -5,10 +5,10 @@
   "bugs": {
     "url": "https://github.com/rustaroots/rustafari/issues"
   },
-  "homepage": "https://github.com/rustaroots/rustafari",
+  "homepage": "https://github.com/rustaroots/rustafari/wiki",
   "version": "1.2.4",
-  "main": "dist/otechdo.js",
-  "types": "src/types/otechdo.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "contributors": [
     "Willy Micieli"
   ],
@@ -28,7 +28,7 @@
     "test:watch": "jest --watch"
   },
   "author": "rustaroots",
-  "license": "GPL-3.0",
+  "license": "AGPL-3.0",
   "description": "A versatile library for building modern websites with ease. Provides powerful tools and utilities for dynamic DOM manipulation, event handling, and interactive component development.",
   "devDependencies": {
     "@eslint/js": "^9.14.0",
