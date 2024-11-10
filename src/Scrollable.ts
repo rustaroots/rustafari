@@ -1,189 +1,67 @@
 export class Scrollable {
-    protected e: HTMLElement | Window
+    private e: Element;
+    private top: number = 0;
+    private left: number = 0;
 
-    /**
-     * Creates an instance of Scrollable for an element or the window.
-     * @param selectorOrWindow - A CSS selector for an element, or the Window object to apply scrolling functionality to.
-     * @throws DOMException if the element is not found.
-     */
-    constructor(selectorOrWindow: string | Window = window) {
-        if (typeof selectorOrWindow === 'string') {
-            const element = document.querySelector(selectorOrWindow)
-            if (!element) {
-                throw new DOMException('Element not found.')
-            }
-            this.e = element as HTMLElement
-        } else {
-            this.e = selectorOrWindow
-        }
+    constructor(selector: string,private offset: number = 500) {
+        const element = document.querySelector(selector);
+        if (!element) throw new DOMException(`Invalid selector "${selector}"`);
+        this.e = element;
     }
 
-    /**
-     * Adds an infinite scroll functionality to the window.
-     *
-     * This function listens for the user reaching the bottom of the page.
-     * When the bottom is reached, it triggers the provided callback function,
-     * allowing for additional content to be loaded dynamically.
-     *
-     * @param callback - The function to be executed when the user reaches the bottom of the page.
-     *                   This function should handle the loading of more content.
-     *
-     * @example
-     * ```typescript
-     * infinite(() => {
-     *     loadMoreContent(); // Function to load additional content
-     * });
-     * ```
-     */
-    infinite(callback: EventListener): void {
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-            callback(new Event('scroll')) // Custom function to load more content
-        }
+    scroll(top: number, left: number): this {
+        this.top = top;
+        this.left = left;
+        this.e.scrollTop = top;
+        this.e.scrollLeft = left;
+        return this;
     }
 
-    /**
-     * Scrolls smoothly to the top of the element or window.
-     * @example
-     * ```typescript
-     * const scrollable = new Scrollable('#myElement');
-     * scrollable.scrollToTop();
-     * ```
-     */
-    scrollToTop(): void {
-        if (this.e instanceof Window) {
-            window.scrollTo({ top: 0, behavior: 'smooth' })
-        } else {
-            this.e.scrollTo({ top: 0, behavior: 'smooth' })
-        }
+    getCurrentPosition():{top:number,left:number} {
+        return {top: this.top, left:this.left};
     }
 
-    /**
-     * Scrolls smoothly to the bottom of the element or window.
-     * @example
-     * ```typescript
-     * const scrollable = new Scrollable('#myElement');
-     * scrollable.scrollToBottom();
-     * ```
-     */
-    scrollToBottom(): void {
-        if (this.e instanceof Window) {
-            window.scrollTo({
-                top: document.body.scrollHeight,
-                behavior: 'smooth',
-            })
-        } else {
-            this.e.scrollTo({ top: this.e.scrollHeight, behavior: 'smooth' })
-        }
+    // Getters for near-edge and scrolling direction flags
+    isNearTop(): boolean {
+        return Math.abs(this.e.scrollTop - this.e.clientHeight) % this.offset == 0;
     }
 
-    /**
-     * Scrolls smoothly to a specified vertical position within the element or window.
-     * @param position - The vertical scroll position to scroll to.
-     * @example
-     * ```typescript
-     * const scrollable = new Scrollable('#myElement');
-     * scrollable.scrollTo(200);
-     * ```
-     */
-    scrollTo(position: number): void {
-        if (this.e instanceof Window) {
-            window.scrollTo({ top: position, behavior: 'smooth' })
-        } else {
-            this.e.scrollTo({ top: position, behavior: 'smooth' })
-        }
+    isNearBottom(): boolean {
+        return Math.abs(this.e.scrollHeight - this.e.clientHeight - this.e.scrollTop) % this.offset <= 1;
     }
 
-    /**
-     * Checks if the element is fully visible in the viewport.
-     * @returns `true` if the element is fully visible in the viewport; otherwise, `false`.
-     * @example
-     * ```typescript
-     * const scrollable = new Scrollable('#myElement');
-     * console.log(scrollable.isInViewport()); // true or false
-     * ```
-     */
-    isInViewport(): boolean {
-        if (this.e instanceof Window) return false
-
-        const rect = this.e.getBoundingClientRect()
-        return (
-            rect.top >= 0 &&
-            rect.left >= 0 &&
-            rect.bottom <=
-                (window.innerHeight || document.documentElement.clientHeight) &&
-            rect.right <=
-                (window.innerWidth || document.documentElement.clientWidth)
-        )
+    isNearRight(): boolean {
+        return Math.abs(this.e.scrollLeft - this.e.clientWidth - this.e.scrollLeft) % this.offset <= 1;
     }
 
-    /**
-     * Adds an event listener for when the user scrolls to the bottom of the element or window.
-     * @param callback - The function to call when the bottom is reached.
-     * @example
-     * ```typescript
-     * const scrollable = new Scrollable('#myElement');
-     * scrollable.onScrollToBottom(() => console.log('Scrolled to the bottom'));
-     * ```
-     */
-    onScrollToBottom(callback: () => void): void {
-        const handleScroll = () => {
-            const atBottom =
-                this.e instanceof Window
-                    ? window.innerHeight + window.scrollY >=
-                      document.body.offsetHeight
-                    : this.e.scrollHeight -
-                          (this.e.scrollTop + this.e.clientHeight) <=
-                      0
-
-            if (atBottom) callback()
-        }
-
-        this.e.addEventListener('scroll', handleScroll)
+    isNearLeft(): boolean {
+        return Math.abs(this.e.scrollLeft - this.e.clientWidth - this.e.scrollLeft) % this.offset == 0;
     }
 
-    /**
-     * Adds an event listener to detect when the user scrolls up.
-     * @param callback - The function to call when scrolling up is detected.
-     * @example
-     * ```typescript
-     * const scrollable = new Scrollable(window);
-     * scrollable.onScrollUp(() => console.log('Scrolling up'));
-     * ```
-     */
-    onScrollUp(callback: () => void): void {
-        let lastScrollPosition = window.scrollY
-
-        const handleScroll = () => {
-            const currentScrollPosition = window.scrollY
-            if (currentScrollPosition < lastScrollPosition) {
-                callback()
-            }
-            lastScrollPosition = currentScrollPosition
-        }
-
-        window.addEventListener('scroll', handleScroll)
+    getIsScrollingDown(): boolean {
+        return true;
     }
 
-    /**
-     * Adds an event listener to detect when the user scrolls down.
-     * @param callback - The function to call when scrolling down is detected.
-     * @example
-     * ```typescript
-     * const scrollable = new Scrollable(window);
-     * scrollable.onScrollDown(() => console.log('Scrolling down'));
-     * ```
-     */
-    onScrollDown(callback: () => void): void {
-        let lastScrollPosition = window.scrollY
+    getIsScrollingUp(): boolean {
+        return Math.abs(this.e.scrollHeight - this.e.clientHeight - this.e.scrollTop)% this.offset == 0;
+    }
 
-        const handleScroll = () => {
-            const currentScrollPosition = window.scrollY
-            if (currentScrollPosition > lastScrollPosition) {
-                callback()
-            }
-            lastScrollPosition = currentScrollPosition
-        }
+    getIsScrollingRight(): boolean {
+        return Math.abs(this.e.clientWidth + this.e.scrollLeft) % this.offset == 0;
+    }
 
-        window.addEventListener('scroll', handleScroll)
+    getIsScrollingLeft(): boolean {
+        return Math.abs(this.e.scrollLeft - this.e.clientWidth ) - this.offset  >=0;
+    }
+
+    // Methods to add event listeners for scroll and scroll end
+    onScroll(callback: EventListener): this {
+        this.e.addEventListener('scroll', callback);
+        return this;
+    }
+
+    onScrollEnd(callback: EventListener): this {
+        this.e.addEventListener('scrollend', callback);
+        return this;
     }
 }

@@ -26,7 +26,7 @@ export class Styles extends Dom {
      * element.show();
      */
     show(): this {
-        return this.setAttr('display', 'block')
+        return this.css('display:block')
     }
 
     /**
@@ -39,7 +39,7 @@ export class Styles extends Dom {
      * element.hide();
      */
     hide(): this {
-        return this.setAttr('display', 'none')
+        return this.css('display:none')
     }
 
     /**

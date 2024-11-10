@@ -58,25 +58,26 @@ export class Enlivenment extends Web {
         duration = 500,
         callback?: () => void,
     ): this {
-        const axis = direction === 'left' || direction === 'right' ? 'X' : 'Y'
-        const sign = direction === 'left' || direction === 'top' ? '-' : ''
-        this.e.style.transform = `translate${axis}(${sign}${distance})`
-        this.e.style.opacity = '0'
-        this.e.style.transition = `transform ${duration}ms ease, opacity ${duration}ms ease`
+        const axis = direction === 'left' || direction === 'right' ? 'X' : 'Y';
+        const sign = direction === 'left' || direction === 'top' ? '-' : '';
+        this.e.style.transform = `translate${axis}(${sign}${distance})`;
+        this.e.style.opacity = '0';
+        this.e.style.transition = `transform ${duration}ms ease, opacity ${duration}ms ease`;
 
+        // Use requestAnimationFrame to set final state after initial state
         requestAnimationFrame(() => {
-            this.e.style.transform = 'translate(0, 0)'
-            this.e.style.opacity = '1'
-        })
+            this.e.style.transform = 'translate(0, 0)';
+            this.e.style.opacity = '1';
+        });
 
         const handleTransitionEnd = () => {
-            this.e.style.transition = ''
-            this.e.removeEventListener('transitionend', handleTransitionEnd)
-            if (callback) callback()
-        }
+            this.e.style.transition = '';
+            this.e.removeEventListener('transitionend', handleTransitionEnd);
+            if (callback) callback();
+        };
 
-        this.e.addEventListener('transitionend', handleTransitionEnd)
-        return this
+        this.e.addEventListener('transitionend', handleTransitionEnd);
+        return this;
     }
 
     /**
