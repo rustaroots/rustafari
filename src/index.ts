@@ -10,3 +10,4 @@ export { Enlivenment } from './Enlivenment'
 export { Human } from './Human'
 export { Visibility } from './Visibility'
 export { Scroll } from './unit/Scroll'
+export { Responsive } from './Responsive';

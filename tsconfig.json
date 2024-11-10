@@ -9,6 +9,6 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true                   // Skip type checking of declaration files
   },
-  "include": ["src/**/*.ts"],              // Include all TypeScript files in src directory
+  "include": ["src/*.ts"],              // Include all TypeScript files in src directory
   "exclude": ["node_modules", "dist"]      // Exclude node_modules and output directory
 }
