@@ -8,12 +8,36 @@ export class Scrollable {
         if (!element) throw new DOMException(`Invalid selector "${selector}"`);
         this.e = element;
     }
+    infinite(onScrollUp: () => void,onScrollDown: () => void,onNearTop: () => void,onNearBottom: () => void): void {
+        // Update the scroll state (this could be part of the class or here as an example)
+        const isNearTop = this.isNearTop();
+        const isNearBottom = this.isNearBottom();
+        const isScrollingUp = this.getIsScrollingUp();
+        const isScrollingDown = this.getIsScrollingDown();
 
-    scroll(top: number, left: number): this {
+        if (isScrollingDown)
+        {
+            onScrollDown();
+        }
+        if (isNearTop)
+        {
+            onNearTop();
+        }
+        if (isNearBottom)
+        {
+            onNearBottom();
+        }
+        if (isScrollingUp)
+        {
+            onScrollUp();
+        }
+    }
+    scroll(top: number, left: number = 0): this {
         this.top = top;
         this.left = left;
         this.e.scrollTop = top;
         this.e.scrollLeft = left;
+        this.e.dispatchEvent(new Event("scroll"));
         return this;
     }
 
@@ -39,7 +63,7 @@ export class Scrollable {
     }
 
     getIsScrollingDown(): boolean {
-        return true;
+        return Math.abs(this.e.scrollHeight - this.e.clientHeight - this.e.scrollTop)% this.offset == 0;
     }
 
     getIsScrollingUp(): boolean {

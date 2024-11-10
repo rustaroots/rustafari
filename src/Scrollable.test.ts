@@ -61,12 +61,29 @@ describe('Scrollable Class Tests', () => {
         expect(scrollable.getIsScrollingDown()).toBe(true);
     });
 
+    test("should handle infinite scroll events correctly", () => {
+        
+        const onScrollUp = jest.fn();
+        const onScrollDown =  jest.fn();
+        const onNearTop  =  jest.fn();
+        const onNearBottom =jest.fn();
+        scrollable.infinite(onScrollUp,onScrollDown,onNearTop,onNearBottom);
+        scrollable.scroll(1000);
+        expect(onScrollDown).toBeCalled();
+        scrollable.scroll(800);
+        expect(onScrollUp).toBeCalled();
+        scrollable.scroll(500);
+        expect(onNearTop).toBeCalled();
+        scrollable.scroll(1500);
+        expect(onNearBottom).toBeCalled();
+
+    });
+
     test('should detect scrolling direction up', () => {
         scrollable.scroll(500, 0); // Scroll down first
         expect(scrollable.getIsScrollingDown()).toBe(true);
         scrollable.scroll(0 , 0); // Scroll up
         expect(scrollable.getIsScrollingUp()).toBe(true);
-
     });
 
     test('should detect scrolling direction right', () => {
