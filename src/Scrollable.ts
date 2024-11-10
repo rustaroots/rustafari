@@ -19,6 +19,29 @@ export class Scrollable {
     }
 
     /**
+     * Adds an infinite scroll functionality to the window.
+     *
+     * This function listens for the user reaching the bottom of the page.
+     * When the bottom is reached, it triggers the provided callback function,
+     * allowing for additional content to be loaded dynamically.
+     *
+     * @param callback - The function to be executed when the user reaches the bottom of the page.
+     *                   This function should handle the loading of more content.
+     *
+     * @example
+     * ```typescript
+     * infinite(() => {
+     *     loadMoreContent(); // Function to load additional content
+     * });
+     * ```
+     */
+    infinite(callback: EventListener): void {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+            callback(new Event('scroll')) // Custom function to load more content
+        }
+    }
+
+    /**
      * Scrolls smoothly to the top of the element or window.
      * @example
      * ```typescript
