@@ -1,21 +1,69 @@
+
+/**
+ * A utility class that enhances the responsiveness of web applications.
+ * It provides callbacks for different breakpoints and allows dynamic adjustment of styles based on screen size.
+ *
+ * Usage example:
+ * ```typescript
+ * const responsive = new Responsive();
+ * responsive.on(
+ *   () => console.log("Extra-small screen"),
+ *   () => console.log("Large screen"),
+ *   () => console.log("Extra-large screen"),
+ *   () => console.log("Extra-extra-large screen")
+ * );
+ * ```
+ */
 export class Responsive {
+
+    /**
+     * Timeout ID for debouncing the window resize event.
+     */
     private resizeTimeout: number | null = null
+
+    /**
+     * Delay in milliseconds for debounce timing.
+     */
     private debounceDelay: number = 200
+
+    /**
+     * Breakpoints defining the screen sizes for responsiveness.
+     */
     private breakpoints = { xs: 0, lg: 500, xl: 800, xxl: 1200 }
+
+    /**
+     * Callback function for handling the window resize event.
+     */
     private handleResizeCallback: (() => void) | null = null
 
+    /**
+     * Callback for the extra-small breakpoint.
+     */
     private xsCallback: (() => void) | null = null
+
+    /**
+     * Callback for the large breakpoint.
+     */
     private lgCallback: (() => void) | null = null
+
+    /**
+     * Callback for the extra-large breakpoint.
+     */
     private xlCallback: (() => void) | null = null
+
+    /**
+     * Callback for the extra-extra-large breakpoint.
+     */
     private xxlCallback: (() => void) | null = null
 
     /**
      * Initializes responsive behavior based on the provided breakpoints.
+     * Sets up callbacks for each breakpoint and attaches a resize event listener.
      *
-     * @param xs - Callback for the extra-small breakpoint.
-     * @param lg - Callback for the large breakpoint.
-     * @param xl - Callback for the extra-large breakpoint.
-     * @param xxl - Callback for the extra-extra-large breakpoint.
+     * @param xs - Function called when the screen width is extra-small.
+     * @param lg - Function called when the screen width is large.
+     * @param xl - Function called when the screen width is extra-large.
+     * @param xxl - Function called when the screen width is extra-extra-large.
      *
      * @example
      * ```typescript
@@ -47,6 +95,10 @@ export class Responsive {
         window.addEventListener('resize', this.handleResizeCallback)
     }
 
+    /**
+     * Invokes the registered callbacks based on the current screen width.
+     * Determines the appropriate breakpoint and calls the corresponding function.
+     */
     private applyCallbacks(): void {
         const width = window.innerWidth
         if (width >= this.breakpoints.xxl) {
@@ -60,9 +112,15 @@ export class Responsive {
         }
     }
     /**
+    /**
      * Customizes the breakpoint values for responsive behavior.
+     * Merges the provided breakpoints with existing values.
      *
      * @param breakpoints - Object specifying new values for each breakpoint.
+     * @param breakpoints.xs - New value for the extra-small breakpoint.
+     * @param breakpoints.lg - New value for the large breakpoint.
+     * @param breakpoints.xl - New value for the extra-large breakpoint.
+     * @param breakpoints.xxl - New value for the extra-extra-large breakpoint.
      *
      * @example
      * ```typescript
@@ -82,6 +140,7 @@ export class Responsive {
 
     /**
      * Sets the debounce delay for resize events.
+     * Defines how long the application should wait before executing the resize callback.
      *
      * @param delay - Delay in milliseconds for debounce timing.
      *
@@ -98,9 +157,11 @@ export class Responsive {
 
     /**
      * Removes the resize event listener to stop responsive behavior.
+     * Disables the current responsive settings and removes all callbacks.
      *
      * @example
      * ```typescript
+     * const responsive = new Responsive();
      * responsive.off();
      * ```
      */
@@ -113,9 +174,13 @@ export class Responsive {
 
     /**
      * Shows or hides an element based on the current breakpoint.
+     * Adjusts the display property of the specified element depending on the screen size.
      *
      * @param element - The target HTML element.
      * @param showOnBreakpoints - Array of breakpoints ('xs', 'lg', 'xl', 'xxl') where the element should be shown.
+     *
+     * @param element - The target HTML element to show or hide.
+     * @param showOnBreakpoints - Array of breakpoint identifiers ('xs', 'lg', 'xl', 'xxl') at which the element should be visible.
      *
      * @example
      * ```typescript
@@ -149,9 +214,14 @@ export class Responsive {
 
     /**
      * Adds responsive classes to an element based on the current breakpoint.
+     * Changes the class names of an element dynamically as the screen size changes.
      *
      * @param element - The target HTML element.
      * @param classes - An object containing class names for each breakpoint.
+     * @param classes.xs - Class name for the extra-small breakpoint.
+     * @param classes.lg - Class name for the large breakpoint.
+     * @param classes.xl - Class name for the extra-large breakpoint.
+     * @param classes.xxl - Class name for the extra-extra-large breakpoint.
      *
      * @example
      * ```typescript
@@ -189,9 +259,14 @@ export class Responsive {
 
     /**
      * Sets responsive padding for an element based on the current breakpoint.
+     * Adjusts the padding property of the specified element depending on the screen size.
      *
      * @param element - The target HTML element.
      * @param padding - Padding values for each breakpoint.
+     * @param padding.xs - Padding value for the extra-small breakpoint.
+     * @param padding.lg - Padding value for the large breakpoint.
+     * @param padding.xl - Padding value for the extra-large breakpoint.
+     * @param padding.xxl - Padding value for the extra-extra-large breakpoint.
      *
      * @example
      * ```typescript
@@ -226,9 +301,14 @@ export class Responsive {
 
     /**
      * Sets responsive margin for an element based on the current breakpoint.
+     * Adjusts the margin property of the specified element depending on the screen size.
      *
      * @param element - The target HTML element.
      * @param margin - Margin values for each breakpoint.
+     * @param margin.xs - Margin value for the extra-small breakpoint.
+     * @param margin.lg - Margin value for the large breakpoint.
+     * @param margin.xl - Margin value for the extra-large breakpoint.
+     * @param margin.xxl - Margin value for the extra-extra-large breakpoint.
      *
      * @example
      * ```typescript

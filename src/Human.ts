@@ -6,17 +6,18 @@ export class Human extends Web {
     }
 
     /**
-     * Detects slow typing in an input field, which might indicate hesitation.
-     *
-     * @param callback - Function to call when slow typing is detected.
-     * @param delay - Optional time in milliseconds between key presses to detect slow typing (default is 1000ms).
+     * Detects slow typing in an input field, which might indicate hesitation or uncertainty.
+
+     * @param callback - A function to be called when slow typing is detected. The function will receive an 'slowtyping' event.
+
+     * @param delay - Time in milliseconds between key presses to detect slow typing. Default is 1000ms.
      * @example
      * ```typescript
      * const inputField = new Human("#inputField");
      * inputField.onSlowTyping(() => console.log("User is typing slowly"), 1500);
      * ```
      */
-    onSlowTyping(callback: EventListener, delay = 1000): this {
+    onSlowTyping(callback: EventListener, delay: number = 1000): this {
         let lastKeyTime = Date.now()
         this.on('keyup', () => {
             const currentTime = Date.now()
@@ -29,17 +30,18 @@ export class Human extends Web {
     }
 
     /**
-     * Detects prolonged hovering over an element.
+     * Detects if a user hovers over an element for an extended period.
      *
-     * @param callback - Function to call when prolonged hovering is detected.
-     * @param duration - Optional time in milliseconds to consider hover as "prolonged" (default is 2000ms).
+     * @param callback - A function to be called when prolonged hovering is detected. The function will receive a 'prolongedhover' event.
+
+     * @param duration - Time in milliseconds to consider a hover as "prolonged". Default is 2000ms.
      * @example
      * ```typescript
      * const element = new Human("#hoverElement");
      * element.onProlongedHover(() => console.log("User is hovering over element"), 3000);
      * ```
      */
-    onProlongedHover(callback: EventListener, duration = 2000): this {
+    onProlongedHover(callback: EventListener, duration: number = 2000): this {
         let hoverTimeout: number | null = null
         this.on('mouseover', () => {
             hoverTimeout = window.setTimeout(() => {
@@ -53,26 +55,27 @@ export class Human extends Web {
     }
 
     /**
-     * Detects user inactivity for a specified duration.
+     * Detects when a user is inactive for a specified duration.
      *
-     * @param callback - Function to call when the user becomes idle.
-     * @param idleTime - Optional time in milliseconds of inactivity to consider the user as "idle" (default is 5000ms).
+     * @param callback - A function to be called when the user becomes idle. The function will receive an 'idle' event.
+
+     * @param idleTime - Time in milliseconds of inactivity to consider the user as "idle". Default is 5000ms.
      * @example
      * ```typescript
      * const userActivity = new Human("#element");
      * userActivity.onIdle(() => console.log("User is idle"), 6000);
      * ```
      */
-    onIdle(callback: EventListener, idleTime = 5000): this {
+    onIdle(callback: EventListener, idleTime: number = 5000): this {
         let idleTimeout: number | null = null
 
         const resetIdleTimer = () => {
-            if (idleTimeout) clearTimeout(idleTimeout)
-            idleTimeout = window.setTimeout(
-                () => callback(new Event('idle')),
-                idleTime,
-            )
-        }
+                if (idleTimeout) clearTimeout(idleTimeout)
+                idleTimeout = window.setTimeout(
+                    () => callback(new Event('idle')),
+                    idleTime,
+                )
+            }
 
         ;['mousemove', 'keypress', 'scroll', 'click'].forEach((event) =>
             document.addEventListener(event, resetIdleTimer),
@@ -83,22 +86,19 @@ export class Human extends Web {
     }
 
     /**
-     * Detects rapid, repetitive clicks, which may indicate user frustration.
+     * Detects rapid, repetitive clicks, which might indicate user frustration or urgency.
      *
-     * @param callback - Function to call when rapid clicks are detected.
-     * @param clickThreshold - Optional number of clicks within an interval to trigger the callback (default is 3).
-     * @param interval - Optional time in milliseconds to track the click sequence (default is 500ms).
+     * @param callback - A function to be called when rapid clicks are detected. The function will receive a 'rapidclicks' event.
+
+     * @param clickThreshold - Number of clicks within the interval to trigger the callback. Default is 3.
+     * @param interval - Time in milliseconds to track the click sequence. Default is 500ms.
      * @example
      * ```typescript
      * const button = new Human("#button");
      * button.onRapidClicks(() => console.log("User clicked rapidly"), 3, 500);
      * ```
      */
-    onRapidClicks(
-        callback: EventListener,
-        clickThreshold = 3,
-        interval = 500,
-    ): this {
+    onRapidClicks(callback: EventListener, clickThreshold: number = 3, interval: number = 500): this {
         let clickCount = 0
         const resetClickCount = () => {
             clickCount = 0
@@ -116,9 +116,9 @@ export class Human extends Web {
     }
 
     /**
-     * Detects when the user returns to the page after leaving.
+     * Detects when a user returns to the page after leaving.
      *
-     * @param callback - Function to call when the user returns to the page.
+     * @param callback - A function to be called when the user returns to the page. The function will receive an 'userreturn' event.
      * @example
      * ```typescript
      * const page = new Human("#element");
@@ -133,17 +133,12 @@ export class Human extends Web {
     }
 
     /**
-     * Detects rapid scrolling, potentially indicating user disengagement.
+     * Detects rapid scrolling, potentially indicating user disengagement or impatience.
      *
-     * @param callback - Function to call when fast scrolling is detected.
-     * @param speedThreshold - Optional minimum scroll speed in pixels per second to trigger the callback (default is 1000).
-     * @example
-     * ```typescript
-     * const pageScroll = new Human("#element");
-     * pageScroll.onFastScroll(() => console.log("User is scrolling fast"), 1200);
-     * ```
+     * @param callback - A function to be called when fast scrolling is detected. The function will receive a 'fastscroll' event.
+     * @param speedThreshold - Minimum scroll speed in pixels per second to trigger the callback. Default is 1000.
      */
-    onFastScroll(callback: EventListener, speedThreshold = 1000): this {
+    onFastScroll(callback: EventListener, speedThreshold: number = 1000): this {
         let lastScrollPosition = window.scrollY
         let lastScrollTime = Date.now()
 
@@ -161,27 +156,24 @@ export class Human extends Web {
             lastScrollPosition = currentPosition
             lastScrollTime = currentTime
         })
-
         return this
     }
 
     /**
      * Detects repeated form submissions within a short period, suggesting impatience.
-     *
-     * @param callback - Function to call when repeated submissions are detected.
-     * @param threshold - Optional number of submissions within an interval to trigger the callback (default is 2).
-     * @param interval - Optional time frame in milliseconds to track submissions (default is 1000ms).
+     * Detects repeated form submissions within a short period, potentially indicating impatience.
+
+     * @param callback - A function to be called when repeated submissions are detected. The function will receive the 'submit' event.
+
+     * @param threshold - Number of submissions within the interval to trigger the callback. Default is 2.
+     * @param interval - Time frame in milliseconds to track submissions. Default is 1000ms.
      * @example
      * ```typescript
      * const form = new Human("#form");
      * form.onRepeatedSubmissions(() => console.log("Form submitted multiple times"), 2, 1500);
      * ```
      */
-    onRepeatedSubmissions(
-        callback: EventListener,
-        threshold = 2,
-        interval = 1000,
-    ): this {
+    onRepeatedSubmissions(callback: EventListener, threshold: number = 2, interval: number = 1000): this {
         let submissionCount = 0
 
         this.on('submit', (event) => {
@@ -197,17 +189,17 @@ export class Human extends Web {
     }
 
     /**
-     * Detects hesitation in filling out form fields by tracking idle time between focus and input.
+     * Detects hesitation while filling out form fields by tracking idle time between focus and input.
      *
-     * @param callback - Function to call when hesitation is detected.
-     * @param idleThreshold - Optional time in milliseconds to consider as hesitation (default is 2000ms).
+     * @param callback - A function to be called when hesitation is detected. The function will receive a 'formfieldhesitation' event.
+     * @param idleThreshold - Time in milliseconds to consider as hesitation. Default is 2000ms.
      * @example
      * ```typescript
      * const formField = new Human("#formField");
      * formField.onFormFieldHesitation(() => console.log("User hesitated in filling out the form"), 2000);
      * ```
      */
-    onFormFieldHesitation(callback: EventListener, idleThreshold = 2000): this {
+    onFormFieldHesitation(callback: EventListener, idleThreshold: number = 2000): this {
         let idleTimeout: number | null = null
 
         this.on('focusin', () => {
@@ -233,16 +225,16 @@ export class Human extends Web {
     /**
      * Detects if the user is moving their mouse in a circular motion.
      *
-     * @param callback - Function to call when idle mouse looping is detected.
-     * @param radius - Optional radius to consider for circular motion (default is 50px).
-     * @param threshold - Optional number of movements within the radius to trigger detection (default is 5).
+     * @param callback - A function to be called when idle mouse looping is detected. The function will receive an 'idlemouseloop' event.
+     * @param radius - Radius to consider for circular motion. Default is 50px.
+     * @param threshold - Number of movements within the radius to trigger detection. Default is 5.
      * @example
      * ```typescript
      * const mouseTracker = new Human("#element");
      * mouseTracker.onIdleMouseLoop(() => console.log("User is idly looping the mouse"), 50, 5);
      * ```
      */
-    onIdleMouseLoop(callback: EventListener, radius = 50, threshold = 5): this {
+    onIdleMouseLoop(callback: EventListener, radius: number = 50, threshold: number = 5): this {
         let positions: { x: number; y: number }[] = []
         let loopCount = 0
 
@@ -278,15 +270,15 @@ export class Human extends Web {
     /**
      * Detects multiple user returns to the page, indicating frequent distractions.
      *
-     * @param callback - Function to call when multiple returns are detected.
-     * @param returnThreshold - Optional number of returns to trigger the callback (default is 3).
+     * @param callback - A function to be called when multiple returns are detected. The function will receive a 'frequentreturns' event.
+     * @param returnThreshold - Number of returns to trigger the callback. Default is 3.
      * @example
      * ```typescript
      * const userReturnTracker = new Human("#element");
      * userReturnTracker.onFrequentReturns(() => console.log("User returned multiple times"), 3);
      * ```
      */
-    onFrequentReturns(callback: EventListener, returnThreshold = 3): this {
+    onFrequentReturns(callback: EventListener, returnThreshold: number = 3): this {
         let returnCount = 0
 
         document.addEventListener('visibilitychange', () => {
