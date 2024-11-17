@@ -1,4 +1,3 @@
-
 /**
  * A utility class that enhances the responsiveness of web applications.
  * It provides callbacks for different breakpoints and allows dynamic adjustment of styles based on screen size.
@@ -14,7 +13,7 @@
  * );
  * ```
  */
-export class Responsive {
+export default class Responsive {
 
     /**
      * Timeout ID for debouncing the window resize event.

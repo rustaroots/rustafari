@@ -1,4 +1,4 @@
-import { Scrollable } from './Scrollable'
+import Scrollable from './Scrollable'
 
 describe('Scrollable Class Tests', () => {
     let scrollable: Scrollable

@@ -1,4 +1,4 @@
-import { Enlivenment } from './Enlivenment'
+import Enlivenment  from './Enlivenment'
 
 describe('Enlivenment Class - Animation Tests', () => {
     let element: HTMLElement

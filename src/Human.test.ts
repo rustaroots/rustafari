@@ -1,4 +1,4 @@
-import { Human } from './Human'
+import  Human  from './Human'
 
 describe('Human Class - User Interaction Tests', () => {
     let human: Human

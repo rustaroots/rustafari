@@ -1,4 +1,3 @@
-
 /**
  * The Scrollable class provides functionalities to handle scroll events and manage scroll
  * positions on a specified DOM element. It supports methods to detect when the element
@@ -11,7 +10,7 @@
  *  () => console.log('Near Top'), () => console.log('Near Bottom'));
  * ```
  */
-export class Scrollable {
+export default class Scrollable {
 
     /**
      * The DOM element that is being controlled.

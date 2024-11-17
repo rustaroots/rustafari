@@ -1,6 +1,6 @@
-import { Web } from './Web'
+import Web from './Web'
 
-export class Visibility extends Web {
+export default class Visibility extends Web {
     /**
      * Checks if the element is currently visible within the viewport.
      *

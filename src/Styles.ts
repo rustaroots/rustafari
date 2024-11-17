@@ -1,6 +1,6 @@
-import { Dom } from './Dom'
+import Dom from './Dom'
 
-export class Styles extends Dom {
+export default class Styles extends Dom {
     /**
      * Applies inline CSS styles to the element.
      *

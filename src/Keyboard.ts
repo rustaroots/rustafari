@@ -1,9 +1,9 @@
-import { Dom } from './Dom'
+import Dom from './Dom'
 
 /**
  * Provides an interface for handling keyboard events on a specified DOM element.
  */
-export class Keyboard extends Dom {
+export default class Keyboard extends Dom {
     constructor(selector: string) {
         super(selector)
     }
@@ -465,4 +465,4 @@ export const KEYBOARD_BACKQUOTE = '`'
 export const KEYBOARD_BRACKET_LEFT = '['
 export const KEYBOARD_BACKSLASH = '\\'
 export const KEYBOARD_BRACKET_RIGHT = ']'
-export const KEYBOARD_QUOTE = "'"
+export const KEYBOARD_QUOTE = '\''

@@ -1,7 +1,7 @@
 /**
  * A utility class for common DOM manipulations.
  */
-export class Dom {
+export default class Dom {
     protected e: HTMLElement
 
     constructor(selector: string) {

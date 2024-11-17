@@ -1,4 +1,4 @@
-export class Scroll {
+export default class Scroll {
     protected element: HTMLElement
 
     /**

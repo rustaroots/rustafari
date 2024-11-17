@@ -1,4 +1,4 @@
-export class Listener {
+export default class Listener {
     protected e: HTMLElement
 
     constructor(selector: string) {
@@ -14,7 +14,13 @@ export class Listener {
      *
      * @param type - The event type (e.g., "click").
      * @param callback - The callback function to execute when the event is triggered.
-     * @returns The `EventHelper` instance for chaining.
+     * @returns The `Listener` instance for chaining.
+     *
+     * @example
+     * const listener = new Listener('#myElement');
+     * listener.on('click', (event) => {
+     *     console.log('Element clicked!', event);
+     * });
      */
     on(type: string, callback: EventListener): this {
         this.e.addEventListener(type, callback)
@@ -26,7 +32,16 @@ export class Listener {
      *
      * @param type - The event type.
      * @param callback - The callback function to remove.
-     * @returns The `EventHelper` instance for chaining.
+     * @returns The `Listener` instance for chaining.
+     *
+     * @example
+     * const listener = new Listener('#myElement');
+     * const handleClick = (event) => {
+     *     console.log('Element clicked!', event);
+     * };
+     * listener.on('click', handleClick);
+     * // Later, remove the event listener
+     * listener.off('click', handleClick);
      */
     off(type: string, callback: EventListener): this {
         this.e.removeEventListener(type, callback)
@@ -39,7 +54,13 @@ export class Listener {
      * @param type - The event type.
      * @param selector - The child selector to match.
      * @param callback - The callback function to execute for matching children.
-     * @returns The `EventHelper` instance for chaining.
+     * @returns The `Listener` instance for chaining.
+     *
+     * @example
+     * const listener = new Listener('#parentElement');
+     * listener.delegate('click', '.child', (event) => {
+     *     console.log('Child element clicked!', event);
+     * });
      */
     delegate(type: string, selector: string, callback: EventListener): this {
         this.e.addEventListener(type, (event) => {
@@ -57,7 +78,13 @@ export class Listener {
      * @param type - The event type.
      * @param callback - The callback function to execute at the limited rate.
      * @param limit - The minimum time in milliseconds between invocations (default is 200ms).
-     * @returns The `EventHelper` instance for chaining.
+     * @returns The `Listener` instance for chaining.
+     *
+     * @example
+     * const listener = new Listener('#myElement');
+     * listener.throttle('scroll', (event) => {
+     *     console.log('Scrolled!', event);
+     * }, 500);
      */
     throttle(type: string, callback: EventListener, limit = 200): this {
         let lastCall = 0
@@ -77,7 +104,13 @@ export class Listener {
      * @param type - The event type.
      * @param callback - The callback function to execute after the delay.
      * @param delay - The delay period in milliseconds (default is 300ms).
-     * @returns The `EventHelper` instance for chaining.
+     * @returns The `Listener` instance for chaining.
+     *
+     * @example
+     * const listener = new Listener('#myElement');
+     * listener.debounce('input', (event) => {
+     *     console.log('Input event after delay!', event);
+     * }, 300);
      */
     debounce(type: string, callback: EventListener, delay = 300): this {
         let timeout: number | null = null
@@ -93,8 +126,14 @@ export class Listener {
      *
      * @param type - The event type.
      * @param callback - The callback function to execute once.
-     * @returns The `EventHelper` instance for chaining.
-     */
+     * @returns The `Listener` instance for chaining.
+     *
+     * @example
+     * const listener = new Listener('#myElement');
+     * listener.once('click', (event) => {
+    *     console.log('Element clicked once!', event);
+    * });
+    */
     once(type: string, callback: EventListener): this {
         const handler = (event: Event) => {
             callback(event)
@@ -109,7 +148,13 @@ export class Listener {
      *
      * @param types - A space-separated string of event types (e.g., "click keydown").
      * @param callback - The callback function to execute on each event type.
-     * @returns The `EventHelper` instance for chaining.
+     * @returns The `Listener` instance for chaining.
+     *
+     * @example
+     * const listener = new Listener('#myElement');
+     * listener.onMultiple('click keydown', (event) => {
+     *     console.log('Event triggered!', event);
+     * });
      */
     onMultiple(types: string, callback: EventListener): this {
         types.split(' ').forEach((type) => this.on(type, callback))
@@ -121,7 +166,11 @@ export class Listener {
      *
      * @param type - The custom event type.
      * @param detail - Optional data to pass with the event.
-     * @returns The `EventHelper` instance for chaining.
+     * @returns The `Listener` instance for chaining.
+     *
+     * @example
+     * const listener = new Listener('#myElement');
+     * listener.trigger('customEvent', { key: 'value' });
      */
     trigger(type: string, detail?: any): this {
         const event = new CustomEvent(type, { detail })
