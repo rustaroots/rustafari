@@ -1,6 +1,6 @@
-import Web from './Web'
+import {Web} from './Web'
 
-export default class Human extends Web {
+export class Human extends Web {
     constructor(selector: string) {
         super(selector)
     }

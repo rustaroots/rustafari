@@ -1,6 +1,8 @@
-import Dom from './Dom'
+import {Dom} from './Dom'
 
-export default class Web extends Dom {
+export const $ = (selector: string) => new Web(selector)
+
+export class Web extends Dom {
     constructor(selector: string) {
         super(selector)
     }

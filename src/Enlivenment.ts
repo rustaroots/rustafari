@@ -1,6 +1,6 @@
-import Web  from './Web'
+import {Web}  from './Web'
 
-export default class Enlivenment extends Web {
+export class Enlivenment extends Web {
     /**
      * Animates a CSS property on the element.
      *

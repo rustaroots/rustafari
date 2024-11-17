@@ -1,4 +1,4 @@
-export default class Listener {
+export class Listener {
     protected e: HTMLElement
 
     constructor(selector: string) {

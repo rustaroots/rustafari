@@ -1,9 +1,9 @@
-import Dom from './Dom'
+import {Dom} from './Dom'
 
 /**
  * Provides an interface for handling keyboard events on a specified DOM element.
  */
-export default class Keyboard extends Dom {
+export class Keyboard extends Dom {
     constructor(selector: string) {
         super(selector)
     }

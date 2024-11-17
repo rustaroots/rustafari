@@ -10,9 +10,10 @@
  *  () => console.log('Near Top'), () => console.log('Near Bottom'));
  * ```
  */
-export default class Scrollable {
+export class Scrollable {
 
     /**
+     *
      * The DOM element that is being controlled.
      */
     private e: Element

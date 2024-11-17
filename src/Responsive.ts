@@ -13,7 +13,7 @@
  * );
  * ```
  */
-export default class Responsive {
+export class Responsive {
 
     /**
      * Timeout ID for debouncing the window resize event.

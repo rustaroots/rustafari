@@ -1,6 +1,22 @@
 {
-  "out": "docs",
-  "entryPoints": ["src/index.ts"],
-  "entryPointStrategy": "expand",
-  "theme": "default"
+  "entryPoints": [
+    "src/index.ts"
+  ],
+  "out": "./docs",
+  "name": "Rustafari",
+  "hideGenerator": true,
+  "readme": "./README.md",
+  "tsconfig": "./tsconfig.json",
+  "exclude": [
+    "**/*.test.ts",
+    "**/node_modules/**"
+  ],
+  "watch": true,
+  "headings": true,
+  "theme": "default",
+  "lang": "en",
+  "githubPages": true,
+  "includeVersion": true,
+  "searchInComments": true,
+  "searchInDocuments": true
 }

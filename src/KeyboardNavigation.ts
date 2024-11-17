@@ -1,11 +1,11 @@
-type NavigationOptions = {
+export type NavigationOptions = {
     containerSelector: string;
     focusableSelector: string;
     horizontal?: boolean;
     onEnter?: (focusedElement: HTMLElement) => void; // Callback pour Enter
 };
 
-export default class KeyboardNavigation {
+export class KeyboardNavigation {
     private container: HTMLElement;
     private focusableElements: HTMLElement[];
     private horizontal: boolean;

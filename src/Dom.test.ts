@@ -1,4 +1,4 @@
-import  Dom from './Dom'
+import  {Dom} from './Dom'
 
 describe('Dom Class', () => {
     let element: HTMLElement
