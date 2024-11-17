@@ -4,6 +4,411 @@ import {Dom} from './Dom'
  * Provides an interface for handling keyboard events on a specified DOM element.
  */
 export class Keyboard extends Dom {
+
+
+    /**
+     * Represents the 'Enter' key.
+     */
+    public ENTER = 'Enter'
+    /**
+     * Represents the 'Escape' key.
+     */
+    public ESCAPE = 'Escape'
+
+    /**
+     * Represents the 'Space' key.
+     */
+    public SPACE = ' '
+    /**
+     * Represents the 'ArrowUp' key.
+     */
+    public ARROW_UP = 'ArrowUp'
+
+    /**
+     * Represents the 'ArrowDown' key.
+     */
+    public ARROW_DOWN = 'ArrowDown'
+    /**
+     * Represents the 'ArrowLeft' key.
+     */
+    public ARROW_LEFT = 'ArrowLeft'
+
+    /**
+     * Represents the 'ArrowRight' key.
+     */
+    public ARROW_RIGHT = 'ArrowRight'
+    /**
+     * Represents the 'Backspace' key.
+     */
+    public BACKSPACE = 'Backspace'
+
+    /**
+     * Represents the 'Tab' key.
+     */
+    public TAB = 'Tab'
+    /**
+     * Represents the 'Shift' key.
+     */
+    public SHIFT = 'Shift'
+
+    /**
+     * Represents the 'Control' key.
+     */
+    public CONTROL = 'Control'
+    /**
+     * Represents the 'Alt' key.
+     */
+    public ALT = 'Alt'
+
+    /**
+     * Represents the 'Meta' key (e.g., Command key on Mac).
+     */
+    public META = 'Meta'
+    /**
+     * Represents the 'CapsLock' key.
+     */
+    public CAPS_LOCK = 'CapsLock'
+
+    /**
+     * Represents the 'Delete' key.
+     */
+    public DELETE = 'Delete'
+    /**
+     * Represents the 'End' key.
+     */
+    public END = 'End'
+
+    /**
+     * Represents the 'Home' key.
+     */
+    public HOME = 'Home'
+    /**
+     * Represents the 'PageUp' key.
+     */
+    public PAGE_UP = 'PageUp'
+
+    /**
+     * Represents the 'PageDown' key.
+     */
+    public PAGE_DOWN = 'PageDown'
+    /**
+     * Represents the 'Insert' key.
+     */
+    public INSERT = 'Insert'
+
+    /**
+     * Represents the 'NumLock' key.
+     */
+    public NUM_LOCK = 'NumLock'
+    /**
+     * Represents the 'ScrollLock' key.
+     */
+    public SCROLL_LOCK = 'ScrollLock'
+
+    /**
+     * Represents the 'Pause' key.
+     */
+    public PAUSE = 'Pause'
+    /**
+     * Represents the 'PrintScreen' key.
+     */
+    public PRINT_SCREEN = 'PrintScreen'
+
+    /**
+     * Represents the 'ContextMenu' key.
+     */
+    public CONTEXT_MENU = 'ContextMenu'
+    /**
+     * Represents the 'Application' key.
+     */
+    public APPLICATION = 'Application'
+
+    /**
+     * Represents the 'Clear' key.
+     */
+    public CLEAR = 'Clear'
+    /**
+     * Represents the 'Help' key.
+     */
+    public HELP = 'Help'
+
+    /**
+     * Represents the 'Select' key.
+     */
+    public SELECT = 'Select'
+    /**
+     * Represents the 'Execute' key.
+     */
+    public EXECUTE = 'Execute'
+
+    /**
+     * Represents the 'Sleep' key.
+     */
+    public SLEEP = 'Sleep'
+
+
+    /**
+     * Represents the 'F1' key.
+     */
+    public F1 = 'F1'
+    /**
+     * Represents the 'F2' key.
+     */
+    public F2 = 'F2'
+
+    /**
+     * Represents the 'F3' key.
+     */
+    public F3 = 'F3'
+    /**
+     * Represents the 'F4' key.
+     */
+    public F4 = 'F4'
+
+    /**
+     * Represents the 'F5' key.
+     */
+    public F5 = 'F5'
+    /**
+     * Represents the 'F6' key.
+     */
+    public F6 = 'F6'
+
+    /**
+     * Represents the 'F7' key.
+     */
+    public F7 = 'F7'
+    /**
+     * Represents the 'F8' key.
+     */
+    public F8 = 'F8'
+
+    /**
+     * Represents the 'F9' key.
+     */
+    public F9 = 'F9'
+    /**
+     * Represents the 'F10' key.
+     */
+    public F10 = 'F10'
+
+    /**
+     * Represents the 'F11' key.
+     */
+    public F11 = 'F11'
+    /**
+     * Represents the 'F12' key.
+     */
+    public F12 = 'F12'
+
+    /**
+     * Represents the 'F13' key.
+     */
+    public F13 = 'F13'
+    /**
+     * Represents the 'F14' key.
+     */
+    public F14 = 'F14'
+
+    /**
+     * Represents the 'F15' key.
+     */
+    public F15 = 'F15'
+    /**
+     * Represents the 'F16' key.
+     */
+    public F16 = 'F16'
+
+    /**
+     * Represents the 'F17' key.
+     */
+    public F17 = 'F17'
+    /**
+     * Represents the 'F18' key.
+     */
+    public F18 = 'F18'
+
+    /**
+     * Represents the 'F19' key.
+     */
+    public F19 = 'F19'
+    /**
+     * Represents the 'F20' key.
+     */
+    public F20 = 'F20'
+
+    /**
+     * Represents the 'F21' key.
+     */
+    public F21 = 'F21'
+    /**
+     * Represents the 'F22' key.
+     */
+    public F22 = 'F22'
+
+    /**
+     * Represents the 'F23' key.
+     */
+    public F23 = 'F23'
+    /**
+     * Represents the 'F24' key.
+     */
+    public F24 = 'F24'
+
+    /**
+     * Represents the 'a' key.
+     */
+    public A = 'a'
+    /**
+     * Represents the 'b' key.
+     */
+    public B = 'b'
+
+    /**
+     * Represents the 'c' key.
+     */
+    public C = 'c'
+    /**
+     * Represents the 'd' key.
+     */
+    public D = 'd'
+
+    /**
+     * Represents the 'e' key.
+     */
+    public E = 'e'
+    /**
+     * Represents the 'f' key.
+     */
+    public F = 'f'
+
+    /**
+     * Represents the 'g' key.
+     */
+    public G = 'g'
+    /**
+     * Represents the 'h' key.
+     */
+    public H = 'h'
+
+    /**
+     * Represents the 'i' key.
+     */
+    public I = 'i'
+    /**
+     * Represents the 'j' key.
+     */
+    public J = 'j'
+
+    /**
+     * Represents the 'k' key.
+     */
+    public K = 'k'
+    /**
+     * Represents the 'l' key.
+     */
+    public L = 'l'
+
+    /**
+     * Represents the 'm' key.
+     */
+    public M = 'm'
+    /**
+     * Represents the 'n' key.
+     */
+    public N = 'n'
+
+    /**
+     * Represents the 'o' key.
+     */
+    public O = 'o'
+    /**
+     * Represents the 'p' key.
+     */
+    public P = 'p'
+
+    /**
+     * Represents the 'q' key.
+     */
+    public Q = 'q'
+    /**
+     * Represents the 'r' key.
+     */
+    public R = 'r'
+
+    /**
+     * Represents the 's' key.
+     */
+    public S = 's'
+    /**
+     * Represents the 't' key.
+     */
+    public T = 't'
+
+    /**
+     * Represents the 'u' key.
+     */
+    public U = 'u'
+    /**
+     * Represents the 'v' key.
+     */
+    public V = 'v'
+
+    /**
+     * Represents the 'w' key.
+     */
+    public W = 'w'
+    /**
+     * Represents the 'x' key.
+     */
+    public X = 'x'
+
+    /**
+     * Represents the 'y' key.
+     */
+    public Y = 'y'
+    /**
+     * Represents the 'z' key.
+     */
+    public Z = 'z'
+
+    /**
+     * Represents the '0' key.
+     */
+    public ZERO = '0'
+    /**
+     * Represents the '1' key.
+     */
+    public ONE = '1'
+
+    /**
+     * Represents the '2' key.
+     */
+    public TWO = '2'
+    /**
+     * Represents the '3' key.
+     */
+    public THREE = '3'
+    public FOUR = '4'
+    public FIVE = '5'
+    public SIX = '6'
+    public SEVEN = '7'
+    public EIGHT = '8'
+    public NINE = '9'
+
+    public SEMICOLON = ';'
+    public EQUAL = '='
+    public COMMA = ','
+    public MINUS = '-'
+    public PERIOD = '.'
+    public SLASH = '/'
+    public BACKQUOTE = '`'
+    public BRACKET_LEFT = '['
+    public BACKSLASH = '\\'
+    public BRACKET_RIGHT = ']'
+    public QUOTE = '\''
+
+    
     constructor(selector: string) {
         super(selector)
     }
@@ -64,405 +469,3 @@ export class Keyboard extends Dom {
         return this
     }
 }
-
-/**
- * Represents the 'Enter' key.
- */
-export const KEYBOARD_ENTER = 'Enter'
-/**
- * Represents the 'Escape' key.
- */
-export const KEYBOARD_ESCAPE = 'Escape'
-
-/**
- * Represents the 'Space' key.
- */
-export const KEYBOARD_SPACE = ' '
-/**
- * Represents the 'ArrowUp' key.
- */
-export const KEYBOARD_ARROW_UP = 'ArrowUp'
-
-/**
- * Represents the 'ArrowDown' key.
- */
-export const KEYBOARD_ARROW_DOWN = 'ArrowDown'
-/**
- * Represents the 'ArrowLeft' key.
- */
-export const KEYBOARD_ARROW_LEFT = 'ArrowLeft'
-
-/**
- * Represents the 'ArrowRight' key.
- */
-export const KEYBOARD_ARROW_RIGHT = 'ArrowRight'
-/**
- * Represents the 'Backspace' key.
- */
-export const KEYBOARD_BACKSPACE = 'Backspace'
-
-/**
- * Represents the 'Tab' key.
- */
-export const KEYBOARD_TAB = 'Tab'
-/**
- * Represents the 'Shift' key.
- */
-export const KEYBOARD_SHIFT = 'Shift'
-
-/**
- * Represents the 'Control' key.
- */
-export const KEYBOARD_CONTROL = 'Control'
-/**
- * Represents the 'Alt' key.
- */
-export const KEYBOARD_ALT = 'Alt'
-
-/**
- * Represents the 'Meta' key (e.g., Command key on Mac).
- */
-export const KEYBOARD_META = 'Meta'
-/**
- * Represents the 'CapsLock' key.
- */
-export const KEYBOARD_CAPS_LOCK = 'CapsLock'
-
-/**
- * Represents the 'Delete' key.
- */
-export const KEYBOARD_DELETE = 'Delete'
-/**
- * Represents the 'End' key.
- */
-export const KEYBOARD_END = 'End'
-
-/**
- * Represents the 'Home' key.
- */
-export const KEYBOARD_HOME = 'Home'
-/**
- * Represents the 'PageUp' key.
- */
-export const KEYBOARD_PAGE_UP = 'PageUp'
-
-/**
- * Represents the 'PageDown' key.
- */
-export const KEYBOARD_PAGE_DOWN = 'PageDown'
-/**
- * Represents the 'Insert' key.
- */
-export const KEYBOARD_INSERT = 'Insert'
-
-/**
- * Represents the 'NumLock' key.
- */
-export const KEYBOARD_NUM_LOCK = 'NumLock'
-/**
- * Represents the 'ScrollLock' key.
- */
-export const KEYBOARD_SCROLL_LOCK = 'ScrollLock'
-
-/**
- * Represents the 'Pause' key.
- */
-export const KEYBOARD_PAUSE = 'Pause'
-/**
- * Represents the 'PrintScreen' key.
- */
-export const KEYBOARD_PRINT_SCREEN = 'PrintScreen'
-
-/**
- * Represents the 'ContextMenu' key.
- */
-export const KEYBOARD_CONTEXT_MENU = 'ContextMenu'
-/**
- * Represents the 'Application' key.
- */
-export const KEYBOARD_APPLICATION = 'Application'
-
-/**
- * Represents the 'Clear' key.
- */
-export const KEYBOARD_CLEAR = 'Clear'
-/**
- * Represents the 'Help' key.
- */
-export const KEYBOARD_HELP = 'Help'
-
-/**
- * Represents the 'Select' key.
- */
-export const KEYBOARD_SELECT = 'Select'
-/**
- * Represents the 'Execute' key.
- */
-export const KEYBOARD_EXECUTE = 'Execute'
-
-/**
- * Represents the 'Sleep' key.
- */
-export const KEYBOARD_SLEEP = 'Sleep'
-
-
-/**
- * Represents the 'F1' key.
- */
-export const KEYBOARD_F1 = 'F1'
-/**
- * Represents the 'F2' key.
- */
-export const KEYBOARD_F2 = 'F2'
-
-/**
- * Represents the 'F3' key.
- */
-export const KEYBOARD_F3 = 'F3'
-/**
- * Represents the 'F4' key.
- */
-export const KEYBOARD_F4 = 'F4'
-
-/**
- * Represents the 'F5' key.
- */
-export const KEYBOARD_F5 = 'F5'
-/**
- * Represents the 'F6' key.
- */
-export const KEYBOARD_F6 = 'F6'
-
-/**
- * Represents the 'F7' key.
- */
-export const KEYBOARD_F7 = 'F7'
-/**
- * Represents the 'F8' key.
- */
-export const KEYBOARD_F8 = 'F8'
-
-/**
- * Represents the 'F9' key.
- */
-export const KEYBOARD_F9 = 'F9'
-/**
- * Represents the 'F10' key.
- */
-export const KEYBOARD_F10 = 'F10'
-
-/**
- * Represents the 'F11' key.
- */
-export const KEYBOARD_F11 = 'F11'
-/**
- * Represents the 'F12' key.
- */
-export const KEYBOARD_F12 = 'F12'
-
-/**
- * Represents the 'F13' key.
- */
-export const KEYBOARD_F13 = 'F13'
-/**
- * Represents the 'F14' key.
- */
-export const KEYBOARD_F14 = 'F14'
-
-/**
- * Represents the 'F15' key.
- */
-export const KEYBOARD_F15 = 'F15'
-/**
- * Represents the 'F16' key.
- */
-export const KEYBOARD_F16 = 'F16'
-
-/**
- * Represents the 'F17' key.
- */
-export const KEYBOARD_F17 = 'F17'
-/**
- * Represents the 'F18' key.
- */
-export const KEYBOARD_F18 = 'F18'
-
-/**
- * Represents the 'F19' key.
- */
-export const KEYBOARD_F19 = 'F19'
-/**
- * Represents the 'F20' key.
- */
-export const KEYBOARD_F20 = 'F20'
-
-/**
- * Represents the 'F21' key.
- */
-export const KEYBOARD_F21 = 'F21'
-/**
- * Represents the 'F22' key.
- */
-export const KEYBOARD_F22 = 'F22'
-
-/**
- * Represents the 'F23' key.
- */
-export const KEYBOARD_F23 = 'F23'
-/**
- * Represents the 'F24' key.
- */
-export const KEYBOARD_F24 = 'F24'
-
-/**
- * Represents the 'a' key.
- */
-export const KEYBOARD_A = 'a'
-/**
- * Represents the 'b' key.
- */
-export const KEYBOARD_B = 'b'
-
-/**
- * Represents the 'c' key.
- */
-export const KEYBOARD_C = 'c'
-/**
- * Represents the 'd' key.
- */
-export const KEYBOARD_D = 'd'
-
-/**
- * Represents the 'e' key.
- */
-export const KEYBOARD_E = 'e'
-/**
- * Represents the 'f' key.
- */
-export const KEYBOARD_F = 'f'
-
-/**
- * Represents the 'g' key.
- */
-export const KEYBOARD_G = 'g'
-/**
- * Represents the 'h' key.
- */
-export const KEYBOARD_H = 'h'
-
-/**
- * Represents the 'i' key.
- */
-export const KEYBOARD_I = 'i'
-/**
- * Represents the 'j' key.
- */
-export const KEYBOARD_J = 'j'
-
-/**
- * Represents the 'k' key.
- */
-export const KEYBOARD_K = 'k'
-/**
- * Represents the 'l' key.
- */
-export const KEYBOARD_L = 'l'
-
-/**
- * Represents the 'm' key.
- */
-export const KEYBOARD_M = 'm'
-/**
- * Represents the 'n' key.
- */
-export const KEYBOARD_N = 'n'
-
-/**
- * Represents the 'o' key.
- */
-export const KEYBOARD_O = 'o'
-/**
- * Represents the 'p' key.
- */
-export const KEYBOARD_P = 'p'
-
-/**
- * Represents the 'q' key.
- */
-export const KEYBOARD_Q = 'q'
-/**
- * Represents the 'r' key.
- */
-export const KEYBOARD_R = 'r'
-
-/**
- * Represents the 's' key.
- */
-export const KEYBOARD_S = 's'
-/**
- * Represents the 't' key.
- */
-export const KEYBOARD_T = 't'
-
-/**
- * Represents the 'u' key.
- */
-export const KEYBOARD_U = 'u'
-/**
- * Represents the 'v' key.
- */
-export const KEYBOARD_V = 'v'
-
-/**
- * Represents the 'w' key.
- */
-export const KEYBOARD_W = 'w'
-/**
- * Represents the 'x' key.
- */
-export const KEYBOARD_X = 'x'
-
-/**
- * Represents the 'y' key.
- */
-export const KEYBOARD_Y = 'y'
-/**
- * Represents the 'z' key.
- */
-export const KEYBOARD_Z = 'z'
-
-/**
- * Represents the '0' key.
- */
-export const KEYBOARD_ZERO = '0'
-/**
- * Represents the '1' key.
- */
-export const KEYBOARD_ONE = '1'
-
-/**
- * Represents the '2' key.
- */
-export const KEYBOARD_TWO = '2'
-/**
- * Represents the '3' key.
- */
-export const KEYBOARD_THREE = '3'
-export const KEYBOARD_FOUR = '4'
-export const KEYBOARD_FIVE = '5'
-export const KEYBOARD_SIX = '6'
-export const KEYBOARD_SEVEN = '7'
-export const KEYBOARD_EIGHT = '8'
-export const KEYBOARD_NINE = '9'
-
-export const KEYBOARD_SEMICOLON = ';'
-export const KEYBOARD_EQUAL = '='
-export const KEYBOARD_COMMA = ','
-export const KEYBOARD_MINUS = '-'
-export const KEYBOARD_PERIOD = '.'
-export const KEYBOARD_SLASH = '/'
-export const KEYBOARD_BACKQUOTE = '`'
-export const KEYBOARD_BRACKET_LEFT = '['
-export const KEYBOARD_BACKSLASH = '\\'
-export const KEYBOARD_BRACKET_RIGHT = ']'
-export const KEYBOARD_QUOTE = '\''
