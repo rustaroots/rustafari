@@ -1,16 +1,16 @@
 /**
- * The Scrollable class provides functionalities to handle scroll events and manage scroll
+ * The Scroll class provides functionalities to handle scroll events and manage scroll
  * positions on a specified DOM element. It supports methods to detect when the element
  * is scrolled to the near edges (top, bottom, left, right) and determine the scrolling direction.
  *
  * Example usage:
  * ```
- * const scrollable = new Scrollable('.scroll-container', 100);
+ * const scrollable = new Scroll('.scroll-container', 100);
  * scrollable.infinite(() => console.log('Scrolled Up'), () => console.log('Scrolled Down'),
  *  () => console.log('Near Top'), () => console.log('Near Bottom'));
  * ```
  */
-export class Scrollable {
+export class Scroll {
 
     /**
      *
@@ -29,7 +29,7 @@ export class Scrollable {
     private left: number = 0
 
     /**
-     * Creates an instance of Scrollable.
+     * Creates an instance of Scroll.
      *
      * @param selector - The CSS selector of the target element to be scrollable.
      * @param offset - The offset margin to consider for edge detection.
@@ -80,7 +80,7 @@ export class Scrollable {
      *
      * @param top - The top scroll position.
      * @param left - The left scroll position (default 0).
-     * @returns The Scrollable instance for method chaining.
+     * @returns The Scroll instance for method chaining.
      */
     scroll(top: number, left: number = 0): this {
         this.top = top
@@ -213,7 +213,7 @@ export class Scrollable {
      * Adds an event listener for the 'scroll' event.
      *
      * @param callback - The function to execute when a scroll event occurs.
-     * @returns The Scrollable instance for method chaining.
+     * @returns The Scroll instance for method chaining.
      */
     onScroll(callback: EventListener): this {
         this.e.addEventListener('scroll', callback)
@@ -224,7 +224,7 @@ export class Scrollable {
      * Adds an event listener for the 'scrollend' event.
      *
      * @param callback - The function to execute when the scroll end event occurs.
-     * @returns The Scrollable instance for method chaining.
+     * @returns The Scroll instance for method chaining.
      */
     onScrollEnd(callback: EventListener): this {
         this.e.addEventListener('scrollend', callback)

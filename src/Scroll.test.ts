@@ -1,7 +1,7 @@
-import {Scrollable} from './Scrollable'
+import {Scroll} from './Scroll'
 
-describe('Scrollable Class Tests', () => {
-    let scrollable: Scrollable
+describe('Scroll Class Tests', () => {
+    let scrollable: Scroll
     let element: HTMLElement
 
     beforeEach(() => {
@@ -32,8 +32,8 @@ describe('Scrollable Class Tests', () => {
             writable: true,
         })
 
-        // Initialize Scrollable instance
-        scrollable = new Scrollable('#content')
+        // Initialize Scroll instance
+        scrollable = new Scroll('#content')
     })
 
     afterEach(() => {

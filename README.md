@@ -32,7 +32,7 @@ Handles keyboard interactions, offering intuitive methods for capturing key even
 ### [📐 Responsive](https://github.com/rustaroots/rustafari/wiki/Responsive)
 Provides tools to manage responsive designs, adapt layouts dynamically, and handle breakpoints.
 
-### [🖱️ Scrollable](https://github.com/rustaroots/rustafari/wiki/Scrollable)
+### [🖱️ Scroll](https://github.com/rustaroots/rustafari/wiki/Scrollable)
 Scroll event utilities to manage and detect scroll behaviors, including edge detection and infinite scrolling.
 
 ### [🎨 Styles](https://github.com/rustaroots/rustafari/wiki/Styles)
@@ -113,7 +113,7 @@ responsive.on(
 | **Human**   | Advanced user interaction detection and behavior analysis.                  |
 | **Keyboard**| Keyboard event handling for various use cases.                              |
 | **Responsive** | Tools for responsive design and layout adaptation.                       |
-| **Scrollable** | Utilities for managing scroll behavior and detecting edges or directions.|
+| **Scroll** | Utilities for managing scroll behavior and detecting edges or directions.|
 | **Styles**  | Inline CSS management and dynamic styling utilities.                        |
 | **Web**     | Base class for DOM-based component extensions.                              |
 
