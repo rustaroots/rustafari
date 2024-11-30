@@ -1,135 +1,121 @@
-import {Scroll} from './Scroll'
+import { Scroll } from './Scroll';
 
-describe('Scroll Class Tests', () => {
-    let scrollable: Scroll
-    let element: HTMLElement
+describe('Scroll Class', () => {
+    let container: HTMLElement;
 
     beforeEach(() => {
-        // Set up a mock DOM element with sufficient height and width for scrolling
-        element = document.createElement('div')
-        element.style.height = '2000px'
-        element.style.width = '2000px'
-        element.style.overflow = 'auto'
-        element.setAttribute('id', 'content')
+        document.body.innerHTML = `
+            <div class="scroll-container" style="overflow: auto; width: 200px; height: 200px;">
+                <div style="height: 1000px; width: 1000px;"></div>
+            </div>
+        `;
+        container = document.querySelector('.scroll-container')!;
+    });
 
-        document.body.appendChild(element)
+    test('should initialize with a valid selector', () => {
+        const scrollable = new Scroll('.scroll-container');
+        expect(scrollable).toBeInstanceOf(Scroll);
+    });
 
-        // Mock scroll properties
-        Object.defineProperty(element, 'clientHeight', {
-            value: 500,
-            writable: true,
-        })
-        Object.defineProperty(element, 'scrollHeight', {
-            value: 2000,
-            writable: true,
-        })
-        Object.defineProperty(element, 'clientWidth', {
-            value: 500,
-            writable: true,
-        })
-        Object.defineProperty(element, 'scrollWidth', {
-            value: 2000,
-            writable: true,
-        })
-
-        // Initialize Scroll instance
-        scrollable = new Scroll('#content')
-    })
-
-    afterEach(() => {
-        document.body.removeChild(element)
-        jest.clearAllMocks()
-    })
+    test('should throw an error for an invalid selector', () => {
+        expect(() => new Scroll('.invalid-container')).toThrow(
+            'Element with selector ".invalid-container" not found.'
+        );
+    });
 
     test('should scroll to a specific position', () => {
-        scrollable.scroll(500, 0)
-        expect(scrollable.getCurrentPosition()).toEqual({ top: 500, left: 0 })
-        scrollable.scroll(250, 250)
-        expect(scrollable.getCurrentPosition()).toEqual({ top: 250, left: 250 })
-    })
+        const scrollable = new Scroll('.scroll-container');
+        scrollable.scroll(100, 50);
 
-    test('should detect near bottom', () => {
-        scrollable.scroll(1500, 0) // Scroll close to the bottom
-        expect(scrollable.isNearBottom()).toBe(true)
-    })
+        expect(container.scrollTop).toBe(100);
+        expect(container.scrollLeft).toBe(50);
+    });
 
-    test('should detect near top', () => {
-        scrollable.scroll(500, 0) // Scroll close to the top
-        expect(scrollable.isNearTop()).toBe(true)
-    })
+    test('should detect near top edge', () => {
+        const scrollable = new Scroll('.scroll-container', 50);
+        scrollable.scroll(30);
 
-    test('should detect near right', () => {
-        scrollable.scroll(0, 1900) // Scroll close to the right
-        expect(scrollable.isNearRight()).toBe(true)
-    })
+        expect(scrollable.isNearTop()).toBe(true);
+    });
 
-    test('should detect near left', () => {
-        scrollable.scroll(0, 50) // Scroll close to the left
-        expect(scrollable.isNearLeft()).toBe(true)
-    })
+    test('should detect near bottom edge', () => {
+        const scrollable = new Scroll('.scroll-container', 50);
+        container.scrollTop = container.scrollHeight - container.clientHeight - 30;
 
-    test('should detect scrolling direction down', () => {
-        scrollable.scroll(500, 0)
-        expect(scrollable.getIsScrollingDown()).toBe(true)
-    })
+        expect(scrollable.isNearBottom()).toBe(true);
+    });
 
-    test('should handle infinite scroll events correctly', () => {
-        const onScrollUp = jest.fn()
-        const onScrollDown = jest.fn()
-        const onNearTop = jest.fn()
-        const onNearBottom = jest.fn()
-        scrollable.infinite(onScrollUp, onScrollDown, onNearTop, onNearBottom)
-        scrollable.scroll(1000)
-        expect(onScrollDown).toBeCalled()
-        scrollable.scroll(800)
-        expect(onScrollUp).toBeCalled()
-        scrollable.scroll(500)
-        expect(onNearTop).toBeCalled()
-        scrollable.scroll(1500)
-        expect(onNearBottom).toBeCalled()
-    })
+    test('should detect scrolling direction', () => {
+        const scrollable = new Scroll('.scroll-container');
+        container.scrollTop = 50;
+        scrollable.scroll(100);
 
-    test('should detect scrolling direction up', () => {
-        scrollable.scroll(500, 0) // Scroll down first
-        expect(scrollable.getIsScrollingDown()).toBe(true)
-        scrollable.scroll(0, 0) // Scroll up
-        expect(scrollable.getIsScrollingUp()).toBe(true)
-    })
+        expect(scrollable.isScrollingDown()).toBe(true);
+        expect(scrollable.isScrollingUp()).toBe(false);
 
-    test('should detect scrolling direction right', () => {
-        scrollable.scroll(0, 500)
-        expect(scrollable.getIsScrollingRight()).toBe(true)
-        expect(scrollable.getIsScrollingLeft()).toBe(false)
-    })
+        scrollable.scroll(50);
+        expect(scrollable.isScrollingUp()).toBe(true);
+        expect(scrollable.isScrollingDown()).toBe(false);
+    });
 
-    test('should detect scrolling direction left', () => {
-        scrollable.scroll(0, 500) // Scroll right first
-        expect(scrollable.getIsScrollingLeft()).toBe(false)
-        expect(scrollable.getIsScrollingRight()).toBe(true)
-    })
+    test('should detect near left edge', () => {
+        const scrollable = new Scroll('.scroll-container', 50);
+        scrollable.scroll(0, 30);
 
-    test('should trigger scroll event callback', () => {
-        const onScrollCallback = jest.fn()
-        scrollable.onScroll(onScrollCallback)
+        expect(scrollable.isNearLeft()).toBe(true);
+    });
 
-        element.scrollTop = 100
-        element.dispatchEvent(new Event('scroll'))
+    test('should detect near right edge', () => {
+        const scrollable = new Scroll('.scroll-container', 50);
+        container.scrollLeft = container.scrollWidth - container.clientWidth - 30;
 
-        expect(onScrollCallback).toHaveBeenCalled()
-    })
+        expect(scrollable.isNearRight()).toBe(true);
+    });
 
-    test('should trigger scroll end event callback', () => {
-        const onScrollEndCallback = jest.fn()
-        scrollable.onScrollEnd(onScrollEndCallback)
+    test('should detect scrolling horizontally', () => {
+        const scrollable = new Scroll('.scroll-container');
+        container.scrollLeft = 50;
+        scrollable.scroll(0, 100);
 
-        // Simulate scroll end event (manual since "scrollend" is not natively supported in all browsers)
-        element.dispatchEvent(new Event('scrollend'))
+        expect(scrollable.isScrollingRight()).toBe(true);
+        expect(scrollable.isScrollingLeft()).toBe(false);
 
-        expect(onScrollEndCallback).toHaveBeenCalled()
-    })
+        scrollable.scroll(0, 50);
+        expect(scrollable.isScrollingLeft()).toBe(true);
+        expect(scrollable.isScrollingRight()).toBe(false);
+    });
 
-    test('should return current position', () => {
-        scrollable.scroll(300, 400)
-        expect(scrollable.getCurrentPosition()).toEqual({ top: 300, left: 400 })
-    })
-})
+    test('should trigger onScroll callback', () => {
+        const scrollable = new Scroll('.scroll-container');
+        const callback = jest.fn();
+
+        scrollable.onScroll(callback);
+        container.scrollTop = 100;
+        container.dispatchEvent(new Event('scroll'));
+
+        expect(callback).toHaveBeenCalled();
+    });
+
+    test('should trigger onScrollEnd callback after scrolling stops', (done) => {
+        const scrollable = new Scroll('.scroll-container');
+        const callback = jest.fn();
+
+        scrollable.onScrollEnd(callback, 100);
+
+        container.scrollTop = 100;
+        container.dispatchEvent(new Event('scroll'));
+
+        setTimeout(() => {
+            expect(callback).toHaveBeenCalled();
+            done();
+        }, 150);
+    });
+
+    test('should provide current scroll position', () => {
+        const scrollable = new Scroll('.scroll-container');
+        scrollable.scroll(120, 80);
+
+        const position = scrollable.getCurrentPosition();
+        expect(position).toEqual({ top: 120, left: 80 });
+    });
+});

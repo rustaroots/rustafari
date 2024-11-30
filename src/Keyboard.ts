@@ -1,471 +1,247 @@
-import {Dom} from './Dom'
+import { Dom } from "./Dom";
 
 /**
- * Provides an interface for handling keyboard events on a specified DOM element.
+ * Configuration interface for the keyboard manager.
  */
-export class Keyboard extends Dom {
-
-
+export interface KeyboardConfig {
     /**
-     * Represents the 'Enter' key.
+     * Keyboard layout, e.g., QWERTY, AZERTY, DVORAK, COLEMAK.
      */
-    public ENTER = 'Enter'
-    /**
-     * Represents the 'Escape' key.
-     */
-    public ESCAPE = 'Escape'
+    layout?: "QWERTY" | "AZERTY" | "DVORAK" | "COLEMAK";
 
     /**
-     * Represents the 'Space' key.
+     * List of keys to ignore during event handling.
      */
-    public SPACE = ' '
-    /**
-     * Represents the 'ArrowUp' key.
-     */
-    public ARROW_UP = 'ArrowUp'
+    ignoredKeys?: string[];
 
     /**
-     * Represents the 'ArrowDown' key.
+     * Map to remap keys, e.g., { "a": "b" } remaps the "a" key to act as "b".
      */
-    public ARROW_DOWN = 'ArrowDown'
-    /**
-     * Represents the 'ArrowLeft' key.
-     */
-    public ARROW_LEFT = 'ArrowLeft'
+    keyRemapping?: Record<string, string>;
 
     /**
-     * Represents the 'ArrowRight' key.
+     * Enable or disable key repeat (default: true).
      */
-    public ARROW_RIGHT = 'ArrowRight'
-    /**
-     * Represents the 'Backspace' key.
-     */
-    public BACKSPACE = 'Backspace'
+    enableKeyRepeat?: boolean;
 
     /**
-     * Represents the 'Tab' key.
+     * Delay in milliseconds before key repeat starts.
      */
-    public TAB = 'Tab'
-    /**
-     * Represents the 'Shift' key.
-     */
-    public SHIFT = 'Shift'
+    repeatDelay?: number;
 
     /**
-     * Represents the 'Control' key.
+     * Interval in milliseconds between repeated key events.
      */
-    public CONTROL = 'Control'
-    /**
-     * Represents the 'Alt' key.
-     */
-    public ALT = 'Alt'
+    repeatInterval?: number;
 
     /**
-     * Represents the 'Meta' key (e.g., Command key on Mac).
+     * Strict mode: only handle predefined keys (default: false).
      */
-    public META = 'Meta'
-    /**
-     * Represents the 'CapsLock' key.
-     */
-    public CAPS_LOCK = 'CapsLock'
+    strictMode?: boolean;
 
     /**
-     * Represents the 'Delete' key.
+     * Global callback for handling all keyboard events.
+     * This is mandatory.
      */
-    public DELETE = 'Delete'
-    /**
-     * Represents the 'End' key.
-     */
-    public END = 'End'
+    globalCallback: (event: KeyboardEvent) => void;
 
     /**
-     * Represents the 'Home' key.
+     * DOM-specific options for the event listener, e.g., { passive: true }.
      */
-    public HOME = 'Home'
-    /**
-     * Represents the 'PageUp' key.
-     */
-    public PAGE_UP = 'PageUp'
+    domOptions?: AddEventListenerOptions;
+}
 
-    /**
-     * Represents the 'PageDown' key.
-     */
-    public PAGE_DOWN = 'PageDown'
-    /**
-     * Represents the 'Insert' key.
-     */
-    public INSERT = 'Insert'
+/**
+ * A class for managing keyboard events with support for layouts, remapping, ignored keys,
+ * and global event handling.
+ */
+export class Keyboard<TConfig extends KeyboardConfig> extends Dom {
+    private config: TConfig;
 
-    /**
-     * Represents the 'NumLock' key.
-     */
-    public NUM_LOCK = 'NumLock'
-    /**
-     * Represents the 'ScrollLock' key.
-     */
-    public SCROLL_LOCK = 'ScrollLock'
+    constructor(selector: string, config: TConfig) {
+        super(selector);
+        this.config = config;
 
-    /**
-     * Represents the 'Pause' key.
-     */
-    public PAUSE = 'Pause'
-    /**
-     * Represents the 'PrintScreen' key.
-     */
-    public PRINT_SCREEN = 'PrintScreen'
-
-    /**
-     * Represents the 'ContextMenu' key.
-     */
-    public CONTEXT_MENU = 'ContextMenu'
-    /**
-     * Represents the 'Application' key.
-     */
-    public APPLICATION = 'Application'
-
-    /**
-     * Represents the 'Clear' key.
-     */
-    public CLEAR = 'Clear'
-    /**
-     * Represents the 'Help' key.
-     */
-    public HELP = 'Help'
-
-    /**
-     * Represents the 'Select' key.
-     */
-    public SELECT = 'Select'
-    /**
-     * Represents the 'Execute' key.
-     */
-    public EXECUTE = 'Execute'
-
-    /**
-     * Represents the 'Sleep' key.
-     */
-    public SLEEP = 'Sleep'
-
-
-    /**
-     * Represents the 'F1' key.
-     */
-    public F1 = 'F1'
-    /**
-     * Represents the 'F2' key.
-     */
-    public F2 = 'F2'
-
-    /**
-     * Represents the 'F3' key.
-     */
-    public F3 = 'F3'
-    /**
-     * Represents the 'F4' key.
-     */
-    public F4 = 'F4'
-
-    /**
-     * Represents the 'F5' key.
-     */
-    public F5 = 'F5'
-    /**
-     * Represents the 'F6' key.
-     */
-    public F6 = 'F6'
-
-    /**
-     * Represents the 'F7' key.
-     */
-    public F7 = 'F7'
-    /**
-     * Represents the 'F8' key.
-     */
-    public F8 = 'F8'
-
-    /**
-     * Represents the 'F9' key.
-     */
-    public F9 = 'F9'
-    /**
-     * Represents the 'F10' key.
-     */
-    public F10 = 'F10'
-
-    /**
-     * Represents the 'F11' key.
-     */
-    public F11 = 'F11'
-    /**
-     * Represents the 'F12' key.
-     */
-    public F12 = 'F12'
-
-    /**
-     * Represents the 'F13' key.
-     */
-    public F13 = 'F13'
-    /**
-     * Represents the 'F14' key.
-     */
-    public F14 = 'F14'
-
-    /**
-     * Represents the 'F15' key.
-     */
-    public F15 = 'F15'
-    /**
-     * Represents the 'F16' key.
-     */
-    public F16 = 'F16'
-
-    /**
-     * Represents the 'F17' key.
-     */
-    public F17 = 'F17'
-    /**
-     * Represents the 'F18' key.
-     */
-    public F18 = 'F18'
-
-    /**
-     * Represents the 'F19' key.
-     */
-    public F19 = 'F19'
-    /**
-     * Represents the 'F20' key.
-     */
-    public F20 = 'F20'
-
-    /**
-     * Represents the 'F21' key.
-     */
-    public F21 = 'F21'
-    /**
-     * Represents the 'F22' key.
-     */
-    public F22 = 'F22'
-
-    /**
-     * Represents the 'F23' key.
-     */
-    public F23 = 'F23'
-    /**
-     * Represents the 'F24' key.
-     */
-    public F24 = 'F24'
-
-    /**
-     * Represents the 'a' key.
-     */
-    public A = 'a'
-    /**
-     * Represents the 'b' key.
-     */
-    public B = 'b'
-
-    /**
-     * Represents the 'c' key.
-     */
-    public C = 'c'
-    /**
-     * Represents the 'd' key.
-     */
-    public D = 'd'
-
-    /**
-     * Represents the 'e' key.
-     */
-    public E = 'e'
-    /**
-     * Represents the 'f' key.
-     */
-    public F = 'f'
-
-    /**
-     * Represents the 'g' key.
-     */
-    public G = 'g'
-    /**
-     * Represents the 'h' key.
-     */
-    public H = 'h'
-
-    /**
-     * Represents the 'i' key.
-     */
-    public I = 'i'
-    /**
-     * Represents the 'j' key.
-     */
-    public J = 'j'
-
-    /**
-     * Represents the 'k' key.
-     */
-    public K = 'k'
-    /**
-     * Represents the 'l' key.
-     */
-    public L = 'l'
-
-    /**
-     * Represents the 'm' key.
-     */
-    public M = 'm'
-    /**
-     * Represents the 'n' key.
-     */
-    public N = 'n'
-
-    /**
-     * Represents the 'o' key.
-     */
-    public O = 'o'
-    /**
-     * Represents the 'p' key.
-     */
-    public P = 'p'
-
-    /**
-     * Represents the 'q' key.
-     */
-    public Q = 'q'
-    /**
-     * Represents the 'r' key.
-     */
-    public R = 'r'
-
-    /**
-     * Represents the 's' key.
-     */
-    public S = 's'
-    /**
-     * Represents the 't' key.
-     */
-    public T = 't'
-
-    /**
-     * Represents the 'u' key.
-     */
-    public U = 'u'
-    /**
-     * Represents the 'v' key.
-     */
-    public V = 'v'
-
-    /**
-     * Represents the 'w' key.
-     */
-    public W = 'w'
-    /**
-     * Represents the 'x' key.
-     */
-    public X = 'x'
-
-    /**
-     * Represents the 'y' key.
-     */
-    public Y = 'y'
-    /**
-     * Represents the 'z' key.
-     */
-    public Z = 'z'
-
-    /**
-     * Represents the '0' key.
-     */
-    public ZERO = '0'
-    /**
-     * Represents the '1' key.
-     */
-    public ONE = '1'
-
-    /**
-     * Represents the '2' key.
-     */
-    public TWO = '2'
-    /**
-     * Represents the '3' key.
-     */
-    public THREE = '3'
-    public FOUR = '4'
-    public FIVE = '5'
-    public SIX = '6'
-    public SEVEN = '7'
-    public EIGHT = '8'
-    public NINE = '9'
-
-    public SEMICOLON = ';'
-    public EQUAL = '='
-    public COMMA = ','
-    public MINUS = '-'
-    public PERIOD = '.'
-    public SLASH = '/'
-    public BACKQUOTE = '`'
-    public BRACKET_LEFT = '['
-    public BACKSLASH = '\\'
-    public BRACKET_RIGHT = ']'
-    public QUOTE = '\''
-
-    
-    constructor(selector: string) {
-        super(selector)
+        // Add the global callback immediately
+        this.addGlobalListener(config.globalCallback);
     }
 
     /**
-     * Attaches a keydown event listener to the element.
-     * @param key - The key to listen for (e.g., 'Enter', 'ArrowUp').
-     * @param callback - The callback function to execute when the key is pressed.
-     * @returns The current instance of the class for method chaining.
+     * Get the current configuration.
+     * @returns The current configuration object.
      */
-    onKeyDown(key: string, callback: EventListener): this {
-        this.e.addEventListener('keydown', (event) => {
-            if ((event as KeyboardEvent).key === key) {
-                callback(event)
-            }
-        })
-        return this
+    getConfig(): TConfig {
+        return this.config;
     }
 
     /**
-     * Attaches a keyup event listener to the element.
-     * @param key - The key to listen for (e.g., 'Enter', 'ArrowUp').
-     * @param callback - The callback function to execute when the key is released.
-     * @returns The current instance of the class for method chaining.
+     * Update the configuration and reapply the global listener.
+     * @param newConfig The new configuration object.
      */
-    onKeyUp(key: string, callback: EventListener): this {
-        this.e.addEventListener('keyup', (event) => {
-            if ((event as KeyboardEvent).key === key) {
-                callback(event)
-            }
-        })
-        return this
+    setConfig(newConfig: TConfig): void {
+        this.removeGlobalListener(this.config.globalCallback);
+        this.config = newConfig;
+        this.addGlobalListener(this.config.globalCallback);
     }
 
     /**
-     * Attaches a keypress event listener to the element.
-     * @param key - The key to listen for (deprecated, prefer `onKeyDown` or `onKeyUp`).
-     * @param callback - The callback function to execute when the key is pressed.
-     * @returns The current instance of the class for method chaining.
+     * Add a global listener for all keyboard events.
+     * @param callback The global callback function.
      */
-    onKeyPress(key: string, callback: EventListener): this {
-        this.e.addEventListener('keypress', (event) => {
-            if ((event as KeyboardEvent).key === key) {
-                callback(event)
-            }
-        })
-        return this
+    private addGlobalListener(callback: (event: KeyboardEvent) => void): void {
+        const options = this.config.domOptions || {};
+        this.e.addEventListener("keydown", callback, options);
+        this.e.addEventListener("keyup", callback, options);
     }
 
     /**
-     * Attaches a listener for any keyboard event (keydown, keyup, keypress).
-     * @param callback - The callback function to execute on any keyboard event.
-     * @returns The current instance of the class for method chaining.
+     * Remove a global listener for all keyboard events.
+     * @param callback The global callback function.
      */
-    onAnyKey(callback: EventListener): this {
-        this.e.addEventListener('keydown', callback)
-        this.e.addEventListener('keyup', callback)
-        return this
+    private removeGlobalListener(callback: (event: KeyboardEvent) => void): void {
+        const options = this.config.domOptions || {};
+        this.e.removeEventListener("keydown", callback, options);
+        this.e.removeEventListener("keyup", callback, options);
     }
+
+    /**
+     * Add a listener for a specific key.
+     * @param key The key to listen for.
+     * @param callback The function to execute when the key is pressed.
+     * @returns The current instance for chaining.
+     */
+    onKeyDown(key: keyof typeof Keyboard.Keys, callback: (event: KeyboardEvent) => void): this {
+        const options = this.config.domOptions || {};
+        this.e.addEventListener(
+            "keydown",
+            (event) => {
+                if (this.shouldHandleEvent(event, key)) {
+                    callback(event);
+                }
+            },
+            options
+        );
+        return this;
+    }
+
+    /**
+     * Determine if the keyboard event should be handled.
+     * @param event The keyboard event.
+     * @param key The target key.
+     * @returns True if the event should be handled, otherwise false.
+     */
+    private shouldHandleEvent(event: KeyboardEvent, key: keyof typeof Keyboard.Keys): boolean {
+        const { ignoredKeys = [], keyRemapping = {}, strictMode = false } = this.config;
+
+        // Remap the key if necessary
+        const remappedKey = keyRemapping[event.key] || event.key;
+
+        // Ignore specified keys
+        if (ignoredKeys.includes(event.key)) {
+            return false;
+        }
+
+        // Strict mode: handle only predefined keys
+        if (strictMode && !Keyboard.Keys[key]) {
+            return false;
+        }
+
+        return remappedKey === Keyboard.Keys[key];
+    }
+
+    /**
+     * Predefined key mappings for convenience.
+     */
+    public static Keys = Object.freeze({
+        ENTER: "Enter",
+        ESCAPE: "Escape",
+        SPACE: " ",
+        ARROW_UP: "ArrowUp",
+        ARROW_DOWN: "ArrowDown",
+        ARROW_LEFT: "ArrowLeft",
+        ARROW_RIGHT: "ArrowRight",
+        BACKSPACE: "Backspace",
+        TAB: "Tab",
+        SHIFT: "Shift",
+        CONTROL: "Control",
+        ALT: "Alt",
+        META: "Meta",
+        CAPS_LOCK: "CapsLock",
+        DELETE: "Delete",
+        END: "End",
+        HOME: "Home",
+        PAGE_UP: "PageUp",
+        PAGE_DOWN: "PageDown",
+        INSERT: "Insert",
+        NUM_LOCK: "NumLock",
+        SCROLL_LOCK: "ScrollLock",
+        PAUSE: "Pause",
+        PRINT_SCREEN: "PrintScreen",
+        CONTEXT_MENU: "ContextMenu",
+        APPLICATION: "Application",
+        CLEAR: "Clear",
+        HELP: "Help",
+        SELECT: "Select",
+        EXECUTE: "Execute",
+        SLEEP: "Sleep",
+        F1: "F1",
+        F2: "F2",
+        F3: "F3",
+        F4: "F4",
+        F5: "F5",
+        F6: "F6",
+        F7: "F7",
+        F8: "F8",
+        F9: "F9",
+        F10: "F10",
+        F11: "F11",
+        F12: "F12",
+        A: "a",
+        B: "b",
+        C: "c",
+        D: "d",
+        E: "e",
+        F: "f",
+        G: "g",
+        H: "h",
+        I: "i",
+        J: "j",
+        K: "k",
+        L: "l",
+        M: "m",
+        N: "n",
+        O: "o",
+        P: "p",
+        Q: "q",
+        R: "r",
+        S: "s",
+        T: "t",
+        U: "u",
+        V: "v",
+        W: "w",
+        X: "x",
+        Y: "y",
+        Z: "z",
+        ZERO: "0",
+        ONE: "1",
+        TWO: "2",
+        THREE: "3",
+        FOUR: "4",
+        FIVE: "5",
+        SIX: "6",
+        SEVEN: "7",
+        EIGHT: "8",
+        NINE: "9",
+        SEMICOLON: ";",
+        EQUAL: "=",
+        COMMA: ",",
+        MINUS: "-",
+        PERIOD: ".",
+        SLASH: "/",
+        BACKQUOTE: "`",
+        BRACKET_LEFT: "[",
+        BACKSLASH: "\\",
+        BRACKET_RIGHT: "]",
+        QUOTE: "'",
+    });
 }
