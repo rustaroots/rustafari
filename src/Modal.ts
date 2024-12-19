@@ -5,7 +5,7 @@ export interface ModalOptions {
 }
 
 export class Modal {
-    private modalElement: HTMLElement;
+    protected modalElement: HTMLElement;
     private overlayElement: HTMLElement;
     private options: ModalOptions;
 
