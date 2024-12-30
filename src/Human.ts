@@ -231,4 +231,48 @@ export class Human extends Web {
 
         return this;
     }
+
+    /**
+     * Detects double-click events.
+     */
+    onDoubleClick(callback: EventListener): this {
+        this.on('dblclick', (event) => {
+            callback(event);
+        });
+        return this;
+    }
+
+    /**
+     * Detects long press on an element.
+     */
+    onLongPress(callback: EventListener, duration: number = 1000): this {
+        let pressTimeout: number | null = null;
+
+        this.on('mousedown', () => {
+            pressTimeout = window.setTimeout(() => {
+                callback(this.createEvent('longpress'));
+            }, duration);
+        });
+
+        this.on('mouseup', () => {
+            if (pressTimeout) clearTimeout(pressTimeout);
+        });
+
+        this.on('mouseleave', () => {
+            if (pressTimeout) clearTimeout(pressTimeout);
+        });
+
+        return this;
+    }
+
+    /**
+     * Detects when an element is resized.
+     */
+    onElementResize(callback: EventListener): this {
+        const resizeObserver = new ResizeObserver(() => {
+            callback(this.createEvent('elementresize'));
+        });
+        resizeObserver.observe(this.e);
+        return this;
+    }
 }
