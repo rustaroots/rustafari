@@ -45,6 +45,29 @@ export class Ajax {
     }
 
     /**
+     * Performs a PATCH request.
+     * @param url The URL to send the PATCH request to.
+     * @param data The data to send in the body of the request.
+     * @param headers Optional headers to include in the request.
+     * @returns A promise resolving to the JSON response of type `T`.
+     */
+    static patch<T, D = Record<string, unknown>>(url: string, data: D, headers: Record<string, string> = {}): Promise<T> {
+        return Ajax.request<T, D>(url, 'PATCH', data, headers);
+    }
+
+    /**
+     * Performs a HEAD request.
+     * @param url The URL to send the HEAD request to.
+     * @param headers Optional headers to include in the request.
+     * @returns A promise resolving to the response headers.
+     */
+    static head(url: string, headers: Record<string, string> = {}): Promise<Headers> {
+        return Ajax.request<void, undefined>(url, 'HEAD', undefined, headers).then(() => {
+            return fetch(url, { method: 'HEAD', headers }).then(response => response.headers);
+        });
+    }
+
+    /**
      * Makes an AJAX request using the Fetch API.
      * This is a helper method used internally by other methods like `get`, `post`, `put`, and `delete`.
      * @param url The URL to send the request to.
@@ -55,7 +78,7 @@ export class Ajax {
      */
     private static async request<T, D>(
         url: string,
-        method: 'GET' | 'POST' | 'PUT' | 'DELETE',
+        method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD',
         data?: D,
         headers: Record<string, string> = {}
     ): Promise<T> {
