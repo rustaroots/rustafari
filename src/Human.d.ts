@@ -96,4 +96,69 @@ export declare class Human extends Web {
      * @param returnThreshold - Optional number of returns to trigger the callback (default is 3).
      */
     onFrequentReturns(callback: EventListener, returnThreshold?: number): this
+
+    /**
+     * Detects if the user is frequently switching between tabs or windows.
+     *
+     * @param callback - Function to call when frequent tab switching is detected.
+     * @param switchThreshold - Optional number of switches within a time frame to trigger the callback (default is 3).
+     * @param interval - Optional time frame in milliseconds to track switches (default is 10000ms).
+     */
+    onFrequentTabSwitching(
+        callback: EventListener,
+        switchThreshold?: number,
+        interval?: number,
+    ): this
+
+    /**
+     * Detects if the user is frequently resizing the browser window.
+     *
+     * @param callback - Function to call when frequent resizing is detected.
+     * @param resizeThreshold - Optional number of resizes within a time frame to trigger the callback (default is 3).
+     * @param interval - Optional time frame in milliseconds to track resizes (default is 5000ms).
+     */
+    onFrequentResizing(
+        callback: EventListener,
+        resizeThreshold?: number,
+        interval?: number,
+    ): this
+
+    /**
+     * Detects if the user is frequently copying text from the page.
+     *
+     * @param callback - Function to call when frequent copying is detected.
+     * @param copyThreshold - Optional number of copy actions within a time frame to trigger the callback (default is 3).
+     * @param interval - Optional time frame in milliseconds to track copy actions (default is 5000ms).
+     */
+    onFrequentCopying(
+        callback: EventListener,
+        copyThreshold?: number,
+        interval?: number,
+    ): this
+
+    /**
+     * Detects if the user is frequently pasting text into input fields.
+     *
+     * @param callback - Function to call when frequent pasting is detected.
+     * @param pasteThreshold - Optional number of paste actions within a time frame to trigger the callback (default is 3).
+     * @param interval - Optional time frame in milliseconds to track paste actions (default is 5000ms).
+     */
+    onFrequentPasting(
+        callback: EventListener,
+        pasteThreshold?: number,
+        interval?: number,
+    ): this
+
+    /**
+     * Detects if the user is frequently refreshing the page.
+     *
+     * @param callback - Function to call when frequent refreshing is detected.
+     * @param refreshThreshold - Optional number of refreshes within a time frame to trigger the callback (default is 3).
+     * @param interval - Optional time frame in milliseconds to track refreshes (default is 10000ms).
+     */
+    onFrequentRefreshing(
+        callback: EventListener,
+        refreshThreshold?: number,
+        interval?: number,
+    ): this
 }
