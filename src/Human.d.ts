@@ -161,4 +161,26 @@ export declare class Human extends Web {
         refreshThreshold?: number,
         interval?: number,
     ): this
+
+    /**
+     * Detects double-click events.
+     *
+     * @param callback - Function to call when a double-click is detected.
+     */
+    onDoubleClick(callback: EventListener): this
+
+    /**
+     * Detects long press on an element.
+     *
+     * @param callback - Function to call when a long press is detected.
+     * @param duration - Optional time in milliseconds to consider as a long press (default is 1000ms).
+     */
+    onLongPress(callback: EventListener, duration?: number): this
+
+    /**
+     * Detects when an element is resized.
+     *
+     * @param callback - Function to call when an element is resized.
+     */
+    onElementResize(callback: EventListener): this
 }
