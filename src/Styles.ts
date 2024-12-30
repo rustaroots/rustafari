@@ -211,4 +211,46 @@ export class Styles extends Dom {
         this.e.style.cssText = '';
         return this;
     }
+
+    /**
+     * Sets the width of the element.
+     *
+     * @param width - The width value (e.g., "100px", "50%", etc.).
+     * @returns The `Styles` instance for chaining.
+     *
+     * @example
+     * const element = new Styles("#myElement");
+     * element.width("100px");
+     */
+    width(width: string): this {
+        return this.css(`width: ${width};`);
+    }
+
+    /**
+     * Sets the height of the element.
+     *
+     * @param height - The height value (e.g., "100px", "50%", etc.).
+     * @returns The `Styles` instance for chaining.
+     *
+     * @example
+     * const element = new Styles("#myElement");
+     * element.height("100px");
+     */
+    height(height: string): this {
+        return this.css(`height: ${height};`);
+    }
+
+    /**
+     * Sets the background color of the element.
+     *
+     * @param color - The background color value (e.g., "red", "#ff0000", "rgb(255, 0, 0)", etc.).
+     * @returns The `Styles` instance for chaining.
+     *
+     * @example
+     * const element = new Styles("#myElement");
+     * element.backgroundColor("red");
+     */
+    backgroundColor(color: string): this {
+        return this.css(`background-color: ${color};`);
+    }
 }
