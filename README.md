@@ -2,6 +2,7 @@
 
 Welcome to **Rustafari**, a modular and lightweight JavaScript framework designed to simplify web development with powerful utilities and intuitive APIs. Rustafari empowers developers to create responsive, interactive, and user-friendly web applications efficiently.
 
+---
 
 ## 🚀 **Why Choose Rustafari?**
 
@@ -10,6 +11,7 @@ Welcome to **Rustafari**, a modular and lightweight JavaScript framework designe
 - **Extensibility**: Designed with a component-based approach to adapt to various use cases.
 - **Performance**: Built with modern JavaScript practices to ensure optimized and fast applications.
 
+---
 
 ## 📚 **Documentation**
 
@@ -41,6 +43,7 @@ Inline CSS management and utility methods for styling DOM elements efficiently.
 ### [🌐 Web](https://github.com/rustaroots/rustafari/wiki/Web)
 A base class for extending DOM-based components and building custom functionality.
 
+---
 
 ## 🛠 **Installation**
 
@@ -59,6 +62,7 @@ Getting started with Rustafari is simple:
 
 3. Start using the framework by importing the modules you need.
 
+---
 
 ## 📖 **Usage Examples**
 
@@ -67,6 +71,17 @@ Here are some examples to get you started with Rustafari:
 ### Example 1: DOM Manipulation
 
 ```typescript
+import { Dom } from './Dom'
+
+const element = new Dom('#myElement')
+element.setText('Hello, Rustafari!')
+element.addClass('highlight')
+```
+
+### Example 2: Detecting User Behavior
+
+```typescript
+import { Human } from './Human'
 
 const inputField = new Human('#inputField')
 inputField.onSlowTyping(() => console.log('User is typing slowly!'), 2000)
@@ -86,6 +101,8 @@ responsive.on(
 )
 ```
 
+---
+
 ## 🧩 **Modules Overview**
 
 | Module      | Description                                                                 |
@@ -100,20 +117,27 @@ responsive.on(
 
 For detailed information about each module, visit the [Rustafari Wiki](https://github.com/rustaroots/rustafari/wiki).
 
+---
 
 ## 📄 **License**
 
 Rustafari is open-source software, licensed under the [AGPL License](LICENSE). Feel free to use, modify, and contribute to the project.
 
+---
+
 ## 🤝 **Contributing**
 
 We welcome contributions to Rustafari! Whether it's fixing bugs, adding new features, or improving documentation, your input is invaluable. Please check out our [Contributing Guidelines](CONTRIBUTING.md) to get started.
+
+---
 
 ## 🔗 **Links**
 
 - [GitHub Repository](https://github.com/rustaroots/rustafari)
 - [Documentation Wiki](https://github.com/rustaroots/rustafari/wiki)
 - [Issue Tracker](https://github.com/rustaroots/rustafari/issues)
+
+---
 
 ## ❤️ **Acknowledgments**
 

@@ -237,7 +237,7 @@ export class Dom {
      * @returns The current instance of the class for method chaining.
      */
     setStyle(property: string, value: string): this {
-        this.e.style.setProperty(property,value,"important");
+        this.e.style.setProperty(property, value, "important");
         return this;
     }
 

@@ -1,4 +1,12 @@
 {
+  "$schema": "https://json.schemastore.org/package",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./dist/": "./dist/"
+  },
   "name": "rustaroots",
   "readme": "README.md",
   "type": "module",

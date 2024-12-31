@@ -1,4 +1,4 @@
-import { Web } from './Web'
+import { Web } from './Web';    
 
 export declare class Human extends Web {
     constructor(selector: string)

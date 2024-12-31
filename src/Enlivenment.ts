@@ -1,4 +1,4 @@
-import {Web}  from './Web'
+import { Web } from './Web';
 
 export class Enlivenment extends Web {
     /**
@@ -25,7 +25,7 @@ export class Enlivenment extends Web {
         callback?: () => void,
     ): this {
         this.e.style.transition = `${property} ${duration}ms ${easing}`
-        ;(this.e.style as any)[property] = toValue
+            ; (this.e.style as any)[property] = toValue
 
         const handleTransitionEnd = () => {
             this.e.style.transition = '' // Reset transition

@@ -1,22 +1,20 @@
 {
   "compilerOptions": {
-    "target": "ES6", // Génère du code compatible ES6
-    "module": "ESNext", // Modules modernes (import/export)
-    "declaration": true, // Fichiers de déclaration .d.ts
-    "outDir": "./dist", // Répertoire des fichiers compilés
-    "strict": true, // Activer toutes les vérifications strictes
-    "moduleResolution": "node", // Résolution des modules comme Node.js
-    "esModuleInterop": true, // Interopérabilité entre CommonJS/ESM
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true, // Ignore les types des fichiers tiers
-    "lib": [
-      "ES2017",
-      "DOM"
-    ] // Librairies utilisées
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "declaration": true,
+    "sourceMap": true,
   },
   "include": [
     "src/**/*.ts"
-  ], // Inclure tous les fichiers TS dans src/
+  ],
   "exclude": [
     "node_modules",
     "dist"
